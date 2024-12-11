@@ -28,7 +28,7 @@ namespace VisualSpline
 
 
         //Gizmo Overload:
-        [DrawGizmo(GizmoType.Selected)]
+        [DrawGizmo(GizmoType.NotInSelectionHierarchy)]
         public static void RenderCustomGizmo(Transform objectTransform, GizmoType gizmoType)
         {
             DrawTools(objectTransform);
