@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model version="6.0.0" name="opentcsTest">
+    <point name="0-0" positionX="9500" positionY="6500" positionZ="0" vehicleOrientationAngle="NaN" type="HALT_POSITION">
+        <maxVehicleBoundingBox length="1000" width="1000" height="1000" referenceOffsetX="0" referenceOffsetY="0"/>
+        <outgoingPath name="0-0 --- 0-1"/>
+        <pointLayout positionX="9500" positionY="6500" labelOffsetX="-10" labelOffsetY="-20" layerId="0"/>
+    </point>
+    <point name="0-1" positionX="13000" positionY="2500" positionZ="0" vehicleOrientationAngle="NaN" type="HALT_POSITION">
+        <maxVehicleBoundingBox length="1000" width="1000" height="1000" referenceOffsetX="0" referenceOffsetY="0"/>
+        <outgoingPath name="0-1 --- 0-4"/>
+        <pointLayout positionX="13000" positionY="2500" labelOffsetX="-10" labelOffsetY="-20" layerId="0"/>
+    </point>
+    <point name="0-2" positionX="10500" positionY="-2000" positionZ="0" vehicleOrientationAngle="NaN" type="HALT_POSITION">
+        <maxVehicleBoundingBox length="1000" width="1000" height="1000" referenceOffsetX="0" referenceOffsetY="0"/>
+        <outgoingPath name="0-2 --- 0-0"/>
+        <pointLayout positionX="10500" positionY="-2000" labelOffsetX="-10" labelOffsetY="-20" layerId="0"/>
+    </point>
+    <point name="0-3" positionX="24500" positionY="-6000" positionZ="0" vehicleOrientationAngle="NaN" type="HALT_POSITION">
+        <maxVehicleBoundingBox length="1000" width="1000" height="1000" referenceOffsetX="0" referenceOffsetY="0"/>
+        <outgoingPath name="0-3 --- 0-2"/>
+        <pointLayout positionX="24500" positionY="-6000" labelOffsetX="-10" labelOffsetY="-20" layerId="0"/>
+    </point>
+    <point name="0-4" positionX="27500" positionY="4000" positionZ="0" vehicleOrientationAngle="NaN" type="HALT_POSITION">
+        <maxVehicleBoundingBox length="1000" width="1000" height="1000" referenceOffsetX="0" referenceOffsetY="0"/>
+        <outgoingPath name="0-4 --- 0-3"/>
+        <pointLayout positionX="27500" positionY="4000" labelOffsetX="-10" labelOffsetY="-20" layerId="0"/>
+    </point>
+    <path name="0-0 --- 0-1" sourcePoint="0-0" destinationPoint="0-1" length="5315" maxVelocity="1000" maxReverseVelocity="0" locked="false">
+        <pathLayout connectionType="BEZIER" layerId="0">
+            <controlPoint x="260" y="-130"/>
+            <controlPoint x="210" y="-70"/>
+        </pathLayout>
+    </path>
+    <path name="0-1 --- 0-4" sourcePoint="0-1" destinationPoint="0-4" length="14577" maxVelocity="1000" maxReverseVelocity="0" locked="false">
+        <pathLayout connectionType="DIRECT" layerId="0"/>
+    </path>
+    <path name="0-2 --- 0-0" sourcePoint="0-2" destinationPoint="0-0" length="8559" maxVelocity="1000" maxReverseVelocity="0" locked="false">
+        <pathLayout connectionType="DIRECT" layerId="0"/>
+    </path>
+    <path name="0-3 --- 0-2" sourcePoint="0-3" destinationPoint="0-2" length="14560" maxVelocity="1000" maxReverseVelocity="0" locked="false">
+        <pathLayout connectionType="DIRECT" layerId="0"/>
+    </path>
+    <path name="0-4 --- 0-3" sourcePoint="0-4" destinationPoint="0-3" length="10440" maxVelocity="1000" maxReverseVelocity="0" locked="false">
+        <pathLayout connectionType="DIRECT" layerId="0"/>
+    </path>
+    <visualLayout name="VLayout" scaleX="50.0" scaleY="50.0">
+        <layer id="0" ordinal="0" visible="true" name="Default layer" groupId="0"/>
+        <layerGroup id="0" name="Default layer group" visible="true"/>
+    </visualLayout>
+    <property name="tcs:modelFileLastModified" value="2024-12-11T06:21:05Z"/>
+</model>

@@ -1,0 +1,16 @@
+{
+    "name": "RDTS.NodeEditor.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ffe49c6b4470fa249921041ce0c89658"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
