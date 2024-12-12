@@ -10,12 +10,14 @@ using XCharts.Runtime;
 
 public class GEN_FunctionTest : MonoBehaviour
 {
+
     public int iteration = 1000;//迭代次数
     public int gensize = 50;//种群大小
-    public int workpieceNumber = 3;//工件数量
-    public int machineNum = 3;//机器数量
-    public int AGVNum = 3;//AGV数量
-    public int processNumTotal = 6;//工序总量
+    public int workpieceNumber = 10;//3;//工件数量
+    public int machineNum = 24;//3;//机器数量
+    public int AGVNum = 8;//3;//AGV数量
+    public int processNumTotal = 60;//6;//工序总量
+    public float AGVSpeed = 1.5f;
     public int[] drawData;
     public GameObject canvas;
 
@@ -23,13 +25,31 @@ public class GEN_FunctionTest : MonoBehaviour
     public int CrossCount_max = 5;
     public double CrossRange = 0.5;
     public double MutationProbability = 0.1;
-    public int[] processNum1 = { 2, 2, 2 };//工件对应工序数量
-    public int[] processNum = { 0, 0, 1, 1, 2, 2 };//工序展开便于初始化
-    public int[] processOptNum = { 3, 3, 3, 3, 3, 2 };//工序可选择的机器数量
+    private int[] processNum1 = { 6,6,6,6,6,6,5,5,5,5,5};//{ 2, 2, 2 };//工件对应工序数量
+    private int[] processNum;//= { 0, 0, 1, 1, 2, 2 };//工序展开便于初始化
+    private int[] processOptNum;// = { 3, 3, 3, 3, 3, 2 };//工序可选择的机器数量
     //public int[,] processOptMachine = { { 0, 1, 2 }, { 0, 1, 2 }, { 0, 1, 2 }, { 0, 1, 2 }, { 0, 1, 2 }, { 0, 2, 1 } };//工序选择机器对应机器编号
-    public double[,] processOptMachineTime = { { 5, 4, 4 }, { 4, 2, 3 }, { 2, 2, 1 }, { 3, 4, 3 }, { 5, 4, 5 }, { 2, 9999, 2 } };//工序选择机器所需时间
-    public double[] machineDistance = {1, 2, 4, 1, 2, 4};//设备间的距离，用于计算AGVworktime
-    public float AGVSpeed = 1.5f;
+    public double[,] processOptMachineTime;//= { { 5, 4, 4 }, { 4, 2, 3 }, { 2, 2, 1 }, { 3, 4, 3 }, { 5, 4, 5 }, { 2, 9999, 2 } };//工序选择机器所需时间
+    private double[] machineDistance;//= {1, 2, 4, 1, 2, 4};//设备间的距离，用于计算AGVworktime
+    [Serializable]
+    public class PieceMachineTime
+    {
+        public List<PieceProcess> pieceProcess;
+    }
+    [Serializable]
+    public class PieceProcess
+    {
+        public List<MachineTimes> machineTimes;
+    }
+    [Serializable]
+    public class MachineTimes
+    {
+        public int machineNum;
+        public double workTime;
+    }
+
+    public List<GameObject> machinesPlaceInformation;
+    public List<PieceMachineTime> pieceMachineTime;
 
 
     public double cal_AGVworktime(double AGV_x,double AGV_y, int endMachine_num)
@@ -337,7 +357,7 @@ public class GEN_FunctionTest : MonoBehaviour
             double index1 = UnityEngine.Random.Range(0.0f, 1.0f);//返回介于 min [含] 与 max [不含] 
             if (index1 <= MutationProbability)
             {
-                int index2 = UnityEngine.Random.Range(0, processNum.Length);//本次变异的机器码
+                int index2 = UnityEngine.Random.Range(0, processNumTotal);//本次变异的机器码
                 int index3 = 0;//选取用时最少的机器
                 for (int j = 1; j < machineNum; j++)
                 {
@@ -353,8 +373,8 @@ public class GEN_FunctionTest : MonoBehaviour
             index1 = UnityEngine.Random.Range(0.0f, 1.0f);
             if (index1 <= MutationProbability)
             {
-                int index2 = UnityEngine.Random.Range(processNum.Length, processNum.Length * 2 - 1);//本次交换基因的机器码起始
-                int index3 = UnityEngine.Random.Range(index2, processNum.Length * 2);//本次交换基因的机器码结束
+                int index2 = UnityEngine.Random.Range(processNumTotal, processNumTotal * 2 - 1);//本次交换基因的机器码起始
+                int index3 = UnityEngine.Random.Range(index2, processNumTotal * 2);//本次交换基因的机器码结束
 
                 int temp = genData[i, index2];
                 genData[i, index2] = genData[i, index3];
@@ -409,7 +429,7 @@ public class GEN_FunctionTest : MonoBehaviour
 
 
 
-        int totalProcessNum = processNum.Length;//工序总数
+        int totalProcessNum = processNumTotal;//工序总数
         int[] Mij = new int[totalProcessNum];//工序对应加工机器集合
         double[] Tij = new double[totalProcessNum];//工序对应机器加工时间集合
         double[,] MachineEmptyTime = new double[machineNum * 2, totalProcessNum * 2];//机器加工空余时间【机器1空余时间起始，机器1空余时间结束.....】，用于检测是否符合贪婪算法
@@ -590,9 +610,9 @@ public class GEN_FunctionTest : MonoBehaviour
     // Start is called before the first frame update
     public void StartGENFunction()
     {
-        int[,] genData = new int[gensize, processNum.Length * 3];//机器码+工序码+AGV码
+        int[,] genData = new int[gensize, processNumTotal * 3];//机器码+工序码+AGV码
         double[] p_fit = new double[gensize];
-        drawData = new int[processNum.Length * 3];
+        drawData = new int[processNumTotal * 3];
         double p_fit_min = 9999999;
         int index = 0;
         int iter_min = 0;
@@ -646,6 +666,57 @@ public class GEN_FunctionTest : MonoBehaviour
 
     }
     void Awake()
+    {
+        //初始化赋值
+        machineDistance = new double[machineNum*2];
+        for (int i = 0; i < machinesPlaceInformation.Count(); i++)
+        {
+            machineDistance[i] = machinesPlaceInformation[i].transform.position.x;
+            machineDistance[machineNum + i] = machinesPlaceInformation[i].transform.position.z;
+        }
+        processNum = new int[processNumTotal];
+        int num = 0;
+        for (int i = 0; i < processNum1.Length; i++)
+        {
+            for (int j = 0; j < processNum1[i]; j++)
+            {
+                processNum[num] = i;
+                num++;
+            }
+        }
+        processOptNum = new int[processNumTotal];
+        for (int i = 0; i < processOptNum.Length; i++)
+        {
+            processOptNum[i] = machineNum;
+        }
+        processOptMachineTime = new double[processNumTotal, machineNum];
+        for (int i = 0; i < processNumTotal; i++)
+        {
+            for (int j = 0; j < machineNum; j++)
+            {
+                processOptMachineTime[i,j] = 9999;//工序对应加工时间初始化
+            }
+        }
+        for (int i = 0; i < pieceMachineTime.Count(); i++)
+        {
+            int startNum = 0;//工序起始编号
+            for (int j = 0; j < i; j++)
+            {
+                startNum += processNum1[j];
+            }
+            for (int k = 0; k < pieceMachineTime[i].pieceProcess.Count(); k++)
+            {
+                int endNum = startNum +k;
+                for (int m = 0; m < pieceMachineTime[i].pieceProcess[k].machineTimes.Count(); m++)
+                {
+                    int machineNum = pieceMachineTime[i].pieceProcess[k].machineTimes[m].machineNum;
+                    double workTime = pieceMachineTime[i].pieceProcess[k].machineTimes[m].workTime;
+                    processOptMachineTime[endNum, machineNum] = workTime;
+                }
+            }
+        }
+    }
+    void Start()
     {
         StartGENFunction();
     }
