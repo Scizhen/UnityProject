@@ -296,7 +296,7 @@ void Awake()
         if (CreateGENEncodeButton != null)
             CreateGENEncodeButton.onClick.AddListener(CreateGENEncodeFuntion);
 
-        GENFuntion = new GEN_FunctionTest();
+        //GENFuntion = new GEN_FunctionTest();
         GENFuntion.canvas = GENResultChart;
         GENEncoedFuntion.GEN_Function = GENFuntion;
         GENEncoedFuntion.pieceLineCanvas = PieceLineChart;

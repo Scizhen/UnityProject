@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
@@ -17,6 +17,7 @@ namespace VisualSpline
         }
 
         public enum StationStatus { Entering, Working, Leaving, Empty, Failure, Waiting };
+        public double[] StatusTimes = new double[6];
         [Foldout("Status")][ReadOnly] public StationStatus LoadStatus = StationStatus.Empty;//װ�ص�״̬
         [Foldout("Status")] [ReadOnly] public StationStatus UnloadStatus = StationStatus.Empty;//ж�ص�״̬
         [ReadOnly] public SplinePoint loadPoint;
@@ -31,7 +32,10 @@ namespace VisualSpline
         // Start is called before the first frame update
         void Start()
         {
-
+            for (int i = 0; i < StatusTimes.Length; i++)
+            {
+                StatusTimes[i] = 0;
+            }    
         }
 
         // Update is called once per frame
@@ -64,6 +68,11 @@ namespace VisualSpline
                     if (currentProcessStep >= processList.Count)
                         currentProcessStep = 0;
                 }
+                StatusTimes[1] += 0.02f;
+            }
+            else
+            {
+                StatusTimes[3] += 0.02f;
             }
 
 

@@ -399,7 +399,7 @@ public class GEN_FunctionTest : MonoBehaviour
         }
         //chart.SetSize(1500, 600);
         var title = chart.EnsureChartComponent<Title>();
-        title.text = "调度甘特图,本次得到最短加工时间："+ p_fit;
+        title.text = "调度甘特图";//:,本次得到最短加工时间：" + p_fit;
         var tooltip = chart.EnsureChartComponent<Tooltip>();
         tooltip.show = true;
 
@@ -414,12 +414,16 @@ public class GEN_FunctionTest : MonoBehaviour
         yAxis.type = Axis.AxisType.Value;
         chart.RemoveData();
         chart.AddSerie<Candlestick>("Candlestick");
-        chart.AddXAxisData("M0");
-        chart.AddXAxisData("M1");
-        chart.AddXAxisData("M2");
-        chart.AddXAxisData("AGV0");
-        chart.AddXAxisData("AGV1");
-        chart.AddXAxisData("AGV2");
+        for (int i = 0; i < machineNum; i++)
+        {
+            chart.AddXAxisData("M" + i);
+        }
+        for (int i = 0; i < AGVNum; i++)
+        {
+            chart.AddXAxisData("AGV"+i);
+        }
+
+
         //0号数据名称用来记录工序安排
         for (int i = 0; i < machineNum + AGVNum; i++)
         {
@@ -541,7 +545,7 @@ public class GEN_FunctionTest : MonoBehaviour
             count_data++;
 
             chart.AddSerie<Candlestick>("Candlestick");
-            for (int p = 0; p < Ai + 3; p++)
+            for (int p = 0; p < Ai +machineNum; p++)
             {
                 chart.AddData(count_data, 0, 0, 0, 0);//给前面的柱状图填空
             }
@@ -556,16 +560,16 @@ public class GEN_FunctionTest : MonoBehaviour
                 itemMacStyle1.color = Color.red;
             count_data++;
 
-            var serieData = chart.AddData(0, serieData1, serieData2, serieData1, serieData2);
-            chart.AddXAxisData("O" + Oi + Oij[Oi]);
-            serieData.radius = 10;
-            var itemStyle = serieData.EnsureComponent<ItemStyle>(); //给数据项添加ItemStyle组件
-            if (Oi == 0)
-                itemStyle.color = Color.blue;
-            if (Oi == 1)
-                itemStyle.color = Color.yellow;
-            if (Oi == 2)
-                itemStyle.color = Color.red;
+            //var serieData = chart.AddData(0, serieData1, serieData2, serieData1, serieData2);
+            //chart.AddXAxisData("O" + Oi + Oij[Oi]);
+            //serieData.radius = 10;
+            //var itemStyle = serieData.EnsureComponent<ItemStyle>(); //给数据项添加ItemStyle组件
+            //if (Oi == 0)
+            //    itemStyle.color = Color.blue;
+            //if (Oi == 1)
+            //    itemStyle.color = Color.yellow;
+            //if (Oi == 2)
+            //    itemStyle.color = Color.red;
         }
     }
     /// <summary>
@@ -610,6 +614,7 @@ public class GEN_FunctionTest : MonoBehaviour
     // Start is called before the first frame update
     public void StartGENFunction()
     {
+        InitGen();
         int[,] genData = new int[gensize, processNumTotal * 3];//机器码+工序码+AGV码
         double[] p_fit = new double[gensize];
         drawData = new int[processNumTotal * 3];
@@ -641,12 +646,61 @@ public class GEN_FunctionTest : MonoBehaviour
 
 
         //测试贪婪算法
-        //drawData[0] = 1;
-        //drawData[1] = 1;
-        //drawData[2] = 0;
-        //drawData[3] = 2;
-        //drawData[4] = 0;
-        //drawData[5] = 0;
+        for (int i = 0; i < 36; i++)
+        {
+            int k = i % 6;
+            switch (k)
+            {
+                case 0:
+                    drawData[i] = 0;
+                    break;
+                case 1:
+                    drawData[i] = 2;
+                    break;
+                case 2:
+                    drawData[i] = 4;
+                    break;
+                case 3:
+                    drawData[i] = 6;
+                    break;
+                case 4:
+                    drawData[i] = 9;
+                    break;
+                case 5:
+                    drawData[i] = 12;
+                    break;
+            }
+
+        }
+        for (int i = 36; i < 61; i++)
+        {
+            int k = (i-36) % 5;
+            switch (k)
+            {
+                case 0:
+                    drawData[i] = 15;
+                    break;
+                case 1:
+                    drawData[i] = 18;
+                    break;
+                case 2:
+                    drawData[i] = 13;
+                    break;
+                case 3:
+                    drawData[i] = 21;
+                    break;
+                case 4:
+                    drawData[i] = 22;
+                    break;
+            }
+
+        }
+        //drawData[0] = 0;
+        //drawData[1] = 2;
+        //drawData[2] = 4;
+        //drawData[3] = 6;
+        //drawData[4] = 9;
+        //drawData[5] = 12;
         //drawData[6] = 1;
         //drawData[7] = 2;
         //drawData[8] = 0;
@@ -665,7 +719,7 @@ public class GEN_FunctionTest : MonoBehaviour
         ///迭代结束
 
     }
-    void Awake()
+    void InitGen()
     {
         //初始化赋值
         machineDistance = new double[machineNum*2];
