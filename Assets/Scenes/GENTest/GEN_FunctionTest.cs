@@ -10,6 +10,12 @@ using XCharts.Runtime;
 
 public class GEN_FunctionTest : MonoBehaviour
 {
+    private string Excelpath = "";
+    private FileInfo _excelName;
+    public string DataExportPath = "/Scenes/GENTest/Data/";  //实验数据文件夹保存路径
+    public string DataExportName = "nof";             //实验数据文件夹名称
+    public bool SaveTotalData = false;                  //保存每一次迭代数据
+    //public bool SaveEveryGenerationData = false;         //是否保存每一个数据
 
     public int iteration = 1000;//迭代次数
     public int gensize = 50;//种群大小
@@ -536,12 +542,14 @@ public class GEN_FunctionTest : MonoBehaviour
             var serieMacData = chart.AddData(count_data, serieData1, serieData2, serieData1, serieData2);//
             serieMacData.radius = 10;
             var itemMacStyle = serieMacData.EnsureComponent<ItemStyle>(); //给数据项添加ItemStyle组件
-            if (Oi == 0)
-                itemMacStyle.color = Color.blue;
-            if (Oi == 1)
-                itemMacStyle.color = Color.yellow;
-            if (Oi == 2)
-                itemMacStyle.color = Color.red;
+            itemMacStyle.color = Color.white;
+            itemMacStyle.borderColor = Color.black;
+            //if (Oi == 0)
+            //    itemMacStyle.color = Color.blue;
+            //if (Oi == 1)
+            //    itemMacStyle.color = Color.yellow;
+            //if (Oi == 2)
+            //    itemMacStyle.color = Color.red;
             count_data++;
 
             chart.AddSerie<Candlestick>("Candlestick");
@@ -552,12 +560,14 @@ public class GEN_FunctionTest : MonoBehaviour
             var serieMacData1 = chart.AddData(count_data, serieData3, serieData4, serieData3, serieData4);//
             serieMacData1.radius = 10;
             var itemMacStyle1 = serieMacData1.EnsureComponent<ItemStyle>(); //给数据项添加ItemStyle组件
-            if (Oi == 0)
-                itemMacStyle1.color = Color.blue;
-            if (Oi == 1)
-                itemMacStyle1.color = Color.yellow;
-            if (Oi == 2)
-                itemMacStyle1.color = Color.red;
+            itemMacStyle1.color = Color.black;
+            itemMacStyle1.borderColor = Color.white;
+            //if (Oi == 0)
+            //    itemMacStyle1.color = Color.blue;
+            //if (Oi == 1)
+            //    itemMacStyle1.color = Color.yellow;
+            //if (Oi == 2)
+            //    itemMacStyle1.color = Color.red;
             count_data++;
 
             //var serieData = chart.AddData(0, serieData1, serieData2, serieData1, serieData2);
@@ -639,7 +649,7 @@ public class GEN_FunctionTest : MonoBehaviour
                     drawData[j] = genData[index, j];
                 }
             }
-
+            Save_Every_Generation_Data(i,index, p_fit.Min(),p_fit_min, genData);
         }
 
         Debug.Log("p_fit_min:" + p_fit.Min());
@@ -770,8 +780,74 @@ public class GEN_FunctionTest : MonoBehaviour
             }
         }
     }
+    private string Generate_Experimental_Tables(string path, string name, int iteration, int gensize, int workpieceNumber, int machineNum, int AGVNum, int processNumTotal, float AGVSpeed, int CrossCount_min, int CrossCount_max,double CrossRange,double MutationProbability)
+    {
+
+        path = Application.dataPath + path + name + DateTime.UtcNow.Ticks + ".xlsx";
+        //path = path + name + DateTime.UtcNow.Ticks + ".xls";
+        Debug.Log(path);
+        FileInfo _excelName = new FileInfo(path);
+        if (_excelName.Exists)
+        {
+            //删除旧文件，并创建一个新的 excel 文件。
+            _excelName.Delete();
+            _excelName = new FileInfo(path);
+        }
+        using (ExcelPackage package = new ExcelPackage(_excelName))
+        {
+            //在 excel 空文件添加新 sheet，并设置名称
+            ExcelWorksheet worksheet0 = package.Workbook.Worksheets.Add("GEN");
+            worksheet0.Cells[2, 1].Value = "iteration:" + iteration;
+            worksheet0.Cells[2, 1].Value = "gensize:" + gensize;
+            worksheet0.Cells[2, 1].Value = "workpieceNumber:" + workpieceNumber;
+            worksheet0.Cells[2, 1].Value = "machineNum:" + machineNum;
+            worksheet0.Cells[2, 1].Value = "AGVNum:" + AGVNum;
+            worksheet0.Cells[2, 1].Value = "processNumTotal:" + processNumTotal;
+            worksheet0.Cells[2, 1].Value = "AGVSpeed:" + AGVSpeed;
+            worksheet0.Cells[2, 1].Value = "CrossCount_min:" + CrossCount_min;
+            worksheet0.Cells[2, 1].Value = "CrossCount_max:" + CrossCount_max;
+            worksheet0.Cells[2, 1].Value = "CrossRange:" + CrossRange;
+            worksheet0.Cells[2, 1].Value = "MutationProbability:" + MutationProbability;
+
+            worksheet0.Cells[2, 1].Value = "迭代次数";
+            worksheet0.Cells[2, 2].Value = "本次最佳染色体编号";
+            worksheet0.Cells[2, 3].Value = "本次最佳适应度";
+            worksheet0.Cells[2, 4].Value = "历史最佳适应度";
+            for (int i = 0; i < processNumTotal * 3; i++)
+            {
+                worksheet0.Cells[2, 5 + i].Value = i ;
+            }
+            package.Save();
+        }
+
+        return path;
+    }
+    private void Save_Every_Generation_Data(int i,int index,double p_fit_min ,double p_fit_min_all,int[,] data)
+    {
+        using (ExcelPackage package = new ExcelPackage(_excelName))
+        {
+            //在 excel 空文件添加新 sheet，并设置名称
+            ExcelWorksheet worksheet = package.Workbook.Worksheets["GEN"];
+
+            worksheet.Cells[3 + i, 1].Value = i;
+            worksheet.Cells[3 + i, 2].Value = index;
+            worksheet.Cells[3 + i, 3].Value = p_fit_min;
+            worksheet.Cells[3 + i, 4].Value = p_fit_min_all;
+            for (int k = 0; k < processNumTotal * 3; k++)
+            {
+                worksheet.Cells[3 + i, 5 + k].Value = data[index, k];
+            }
+            package.Save();
+        }
+    }
     void Start()
     {
+        if (SaveTotalData)
+        {
+            Excelpath = Generate_Experimental_Tables(DataExportPath, DataExportName, iteration, gensize, workpieceNumber, machineNum, AGVNum, processNumTotal, AGVSpeed, CrossCount_min, CrossCount_max, CrossRange, MutationProbability);  //生成实验数据文件
+            _excelName = new FileInfo(Excelpath);
+        }
+
         StartGENFunction();
     }
     // Update is called once per frame

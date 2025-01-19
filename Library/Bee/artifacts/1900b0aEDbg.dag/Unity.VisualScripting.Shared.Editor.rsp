@@ -128,7 +128,6 @@
 -r:"Assets/RDTS/Private/Plugins/System.Windows.Forms.dll"
 -r:"Assets/RDTS/Private/Plugins/TDx.TDxInput.dll"
 -r:"Assets/RDTS/Scripts/Base/PathSystemBase/MathNet.Numerics.dll"
--r:"Assets/RDTS/Scripts/Window/Editor/DllExample.dll"
 -r:"D:/1.Scientific/Unity_Project/Parallel-RDTS-master/Library/PackageCache/com.unity.collab-proxy@2.0.3/Lib/Editor/PlasticSCM/log4netPlastic.dll"
 -r:"D:/1.Scientific/Unity_Project/Parallel-RDTS-master/Library/PackageCache/com.unity.collab-proxy@2.0.3/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll"
 -r:"D:/1.Scientific/Unity_Project/Parallel-RDTS-master/Library/PackageCache/com.unity.collab-proxy@2.0.3/Lib/Editor/PlasticSCM/Unity.Plastic.Newtonsoft.Json.dll"
