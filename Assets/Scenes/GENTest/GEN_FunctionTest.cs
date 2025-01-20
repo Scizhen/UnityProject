@@ -15,7 +15,7 @@ public class GEN_FunctionTest : MonoBehaviour
     public string DataExportPath = "/Scenes/GENTest/Data/";  //实验数据文件夹保存路径
     public string DataExportName = "nof";             //实验数据文件夹名称
     public bool SaveTotalData = false;                  //保存每一次迭代数据
-    //public bool SaveEveryGenerationData = false;         //是否保存每一个数据
+    public bool SaveEveryFitMinData = true;         //是否保存每一次迭代适应度最低值
 
     public int iteration = 1000;//迭代次数
     public int gensize = 50;//种群大小
@@ -30,6 +30,7 @@ public class GEN_FunctionTest : MonoBehaviour
     public int CrossCount_min = 1;
     public int CrossCount_max = 5;
     public double CrossRange = 0.5;
+    public double ReserveRange = 0.2; //保留数量
     public double MutationProbability = 0.1;
     private int[] processNum1 = { 6,6,6,6,6,6,5,5,5,5,5};//{ 2, 2, 2 };//工件对应工序数量
     private int[] processNum;//= { 0, 0, 1, 1, 2, 2 };//工序展开便于初始化
@@ -234,11 +235,15 @@ public class GEN_FunctionTest : MonoBehaviour
     {
         int[,] childx0 = new int[gensize, processNum.Length * 3];
         Array.Copy(genData, childx0, genData.Length);
-        for (int i = 0; i < gensize / 2; i++)
+
+        int cross_count = (int)(gensize * CrossRange);//交叉总数
+        int alternate_position = 0;
+
+        for (int i = 0; i < cross_count/2; i++)
         {
             //本次交叉的两个基因
-            int gensize1 = 2 * i;
-            int gensize2 = 2 * i + 1;
+            int gensize1 = UnityEngine.Random.Range(0, gensize - 1);
+            int gensize2 = UnityEngine.Random.Range(gensize1, gensize - 1);
             //机器码交叉
             int index1 = UnityEngine.Random.Range(0, processNum.Length - 1);//本次交换基因的机器码起始
             int index2 = UnityEngine.Random.Range(index1, processNum.Length);//本次交换基因的机器码结束
@@ -350,28 +355,41 @@ public class GEN_FunctionTest : MonoBehaviour
                 childx0[gensize1, processNum.Length + k] = child1[k];
                 childx0[gensize2, processNum.Length + k] = child2[k];
             }
+
+            for (int k = 0; k < processNumTotal * 3; k++)
+            {
+                genData[alternate_position,k] = childx0[gensize1,k];
+                genData[alternate_position+1,k] = childx0[gensize2, k];
+            }
+
+            alternate_position += 2;
         }
 
-        gensize_after = childx0;
+        gensize_after = genData;
     }
 
     public void Mutation(int gensize, int[,] genData, out int[,] gensize_after)
     {
-        for (int i = 0; i < gensize; i++)
+        for (int i = 0; i < gensize - 1; i++)
         {
             //机器码变异
             double index1 = UnityEngine.Random.Range(0.0f, 1.0f);//返回介于 min [含] 与 max [不含] 
             if (index1 <= MutationProbability)
             {
                 int index2 = UnityEngine.Random.Range(0, processNumTotal);//本次变异的机器码
-                int index3 = 0;//选取用时最少的机器
-                for (int j = 1; j < machineNum; j++)
-                {
-                    if (processOptMachineTime[index2, index3] > processOptMachineTime[index2, j])
-                    {
-                        index3 = j;
-                    }
-                }
+                int index3 = 0;
+
+                //随机数优化变异
+                //for (int j = 1; j < machineNum; j++)
+                //{
+                //    if (processOptMachineTime[index2, index3] > processOptMachineTime[index2, j])//选取用时最少的机器
+                //    {
+                //        index3 = j;
+                //    }
+                //}
+
+                //选择变异
+                index3 = UnityEngine.Random.Range(0, machineNum);
                 genData[i, index2] = index3;
             }
 
@@ -388,6 +406,39 @@ public class GEN_FunctionTest : MonoBehaviour
             }
         }
         gensize_after =  genData;
+    }
+
+    public void Reserve(int gensize, int[,] genData, out int[,] gensize_after,int index_min,double[] p_fit)
+    {
+
+        //精英保留，替换掉最后一条染色体
+        for (int i = 0; i < processNumTotal * 3; i++)
+        {
+            genData[gensize - 1, i] = genData[index_min, i];
+        }
+
+        //竞标赛保留
+        int Reserve_count = (int)(gensize * ReserveRange - 1);
+        int Every_choonse_num = (int)(gensize / Reserve_count);
+        double[] fit = new double[Every_choonse_num]; 
+        int alternate_position = 1;
+        for (int i = 0; i < Reserve_count; i++)
+        {
+            for (int j = 0; j < Every_choonse_num; j++)
+            {
+                fit[j] = p_fit[i * Every_choonse_num + j];
+            }
+            int fit_min = fit.ToList().IndexOf(fit.Min());
+            int reserveNum = i * Every_choonse_num + fit_min;
+
+            for (int j = 0; j < processNumTotal * 3; j++)
+            {
+                genData[gensize - 1 - alternate_position, j] = genData[reserveNum, j];
+            }
+            alternate_position++;
+        }
+
+        gensize_after = genData;
     }
     /// <summary>
     /// 绘制甘特图
@@ -629,101 +680,86 @@ public class GEN_FunctionTest : MonoBehaviour
         double[] p_fit = new double[gensize];
         drawData = new int[processNumTotal * 3];
         double p_fit_min = 9999999;
+        double[] p_fit_min_total = new double[iteration];
         int index = 0;
         int iter_min = 0;
         Initialize(gensize, workpieceNumber, machineNum, processNum, processOptNum,out genData);
         //开始迭代
         for (int i = 0; i < iteration; i++)
         {
+            Reserve(gensize, genData, out genData,index,p_fit);//保留
             Cross(gensize, genData, processNum, out genData);//交叉
-            Mutation(gensize, genData, out genData);
+            Mutation(gensize, genData, out genData);//变异
             EnCode(gensize, genData, processNum, out p_fit);//解码
-
+            index = p_fit.ToList().IndexOf(p_fit.Min());    //在个体历史适应度中找到最小值的索引号
             if (p_fit_min > p_fit.Min())
             {
                 iter_min = i;
                 p_fit_min = p_fit.Min();
-                index = p_fit.ToList().IndexOf(p_fit.Min());    //在个体历史适应度中找到最小值的索引号
                 for (int j = 0; j < drawData.Length; j++)
                 {
                     drawData[j] = genData[index, j];
                 }
             }
-            Save_Every_Generation_Data(i,index, p_fit.Min(),p_fit_min, genData);
+            p_fit_min_total[i] = p_fit.Min();
+            if (SaveTotalData)
+                Save_Every_Generation_Data(i,index, p_fit.Min(),p_fit_min, genData);
         }
-
+        if (SaveEveryFitMinData)
+            Save_Every_Fit_Min_Data(p_fit_min_total);
         Debug.Log("p_fit_min:" + p_fit.Min());
 
 
-        //测试贪婪算法
-        for (int i = 0; i < 36; i++)
-        {
-            int k = i % 6;
-            switch (k)
-            {
-                case 0:
-                    drawData[i] = 0;
-                    break;
-                case 1:
-                    drawData[i] = 2;
-                    break;
-                case 2:
-                    drawData[i] = 4;
-                    break;
-                case 3:
-                    drawData[i] = 6;
-                    break;
-                case 4:
-                    drawData[i] = 9;
-                    break;
-                case 5:
-                    drawData[i] = 12;
-                    break;
-            }
+        ////测试
+        //for (int i = 0; i < 36; i++)
+        //{
+        //    int k = i % 6;
+        //    switch (k)
+        //    {
+        //        case 0:
+        //            drawData[i] = 0;
+        //            break;
+        //        case 1:
+        //            drawData[i] = 2;
+        //            break;
+        //        case 2:
+        //            drawData[i] = 4;
+        //            break;
+        //        case 3:
+        //            drawData[i] = 6;
+        //            break;
+        //        case 4:
+        //            drawData[i] = 9;
+        //            break;
+        //        case 5:
+        //            drawData[i] = 12;
+        //            break;
+        //    }
 
-        }
-        for (int i = 36; i < 61; i++)
-        {
-            int k = (i-36) % 5;
-            switch (k)
-            {
-                case 0:
-                    drawData[i] = 15;
-                    break;
-                case 1:
-                    drawData[i] = 18;
-                    break;
-                case 2:
-                    drawData[i] = 13;
-                    break;
-                case 3:
-                    drawData[i] = 21;
-                    break;
-                case 4:
-                    drawData[i] = 22;
-                    break;
-            }
+        //}
+        //for (int i = 36; i < 61; i++)
+        //{
+        //    int k = (i-36) % 5;
+        //    switch (k)
+        //    {
+        //        case 0:
+        //            drawData[i] = 15;
+        //            break;
+        //        case 1:
+        //            drawData[i] = 18;
+        //            break;
+        //        case 2:
+        //            drawData[i] = 13;
+        //            break;
+        //        case 3:
+        //            drawData[i] = 21;
+        //            break;
+        //        case 4:
+        //            drawData[i] = 22;
+        //            break;
+        //    }
 
-        }
-        //drawData[0] = 0;
-        //drawData[1] = 2;
-        //drawData[2] = 4;
-        //drawData[3] = 6;
-        //drawData[4] = 9;
-        //drawData[5] = 12;
-        //drawData[6] = 1;
-        //drawData[7] = 2;
-        //drawData[8] = 0;
-        //drawData[9] = 2;
-        //drawData[10] = 0;
-        //drawData[11] = 1;
-        //drawData[12] = 1;
-        //drawData[13] = 0;
-        //drawData[14] = 2;
-        //drawData[15] = 1;
-        //drawData[16] = 2;
-        //drawData[17] = 0;
-
+        //}
 
         DrawGante(drawData, index, p_fit_min, iter_min);
         ///迭代结束
@@ -796,27 +832,30 @@ public class GEN_FunctionTest : MonoBehaviour
         using (ExcelPackage package = new ExcelPackage(_excelName))
         {
             //在 excel 空文件添加新 sheet，并设置名称
-            ExcelWorksheet worksheet0 = package.Workbook.Worksheets.Add("GEN");
-            worksheet0.Cells[2, 1].Value = "iteration:" + iteration;
-            worksheet0.Cells[2, 1].Value = "gensize:" + gensize;
-            worksheet0.Cells[2, 1].Value = "workpieceNumber:" + workpieceNumber;
-            worksheet0.Cells[2, 1].Value = "machineNum:" + machineNum;
-            worksheet0.Cells[2, 1].Value = "AGVNum:" + AGVNum;
-            worksheet0.Cells[2, 1].Value = "processNumTotal:" + processNumTotal;
-            worksheet0.Cells[2, 1].Value = "AGVSpeed:" + AGVSpeed;
-            worksheet0.Cells[2, 1].Value = "CrossCount_min:" + CrossCount_min;
-            worksheet0.Cells[2, 1].Value = "CrossCount_max:" + CrossCount_max;
-            worksheet0.Cells[2, 1].Value = "CrossRange:" + CrossRange;
-            worksheet0.Cells[2, 1].Value = "MutationProbability:" + MutationProbability;
 
-            worksheet0.Cells[2, 1].Value = "迭代次数";
-            worksheet0.Cells[2, 2].Value = "本次最佳染色体编号";
-            worksheet0.Cells[2, 3].Value = "本次最佳适应度";
-            worksheet0.Cells[2, 4].Value = "历史最佳适应度";
-            for (int i = 0; i < processNumTotal * 3; i++)
-            {
-                worksheet0.Cells[2, 5 + i].Value = i ;
-            }
+                ExcelWorksheet worksheet0 = package.Workbook.Worksheets.Add("GEN");
+                worksheet0.Cells[2, 1].Value = "iteration:" + iteration;
+                worksheet0.Cells[2, 1].Value = "gensize:" + gensize;
+                worksheet0.Cells[2, 1].Value = "workpieceNumber:" + workpieceNumber;
+                worksheet0.Cells[2, 1].Value = "machineNum:" + machineNum;
+                worksheet0.Cells[2, 1].Value = "AGVNum:" + AGVNum;
+                worksheet0.Cells[2, 1].Value = "processNumTotal:" + processNumTotal;
+                worksheet0.Cells[2, 1].Value = "AGVSpeed:" + AGVSpeed;
+                worksheet0.Cells[2, 1].Value = "CrossCount_min:" + CrossCount_min;
+                worksheet0.Cells[2, 1].Value = "CrossCount_max:" + CrossCount_max;
+                worksheet0.Cells[2, 1].Value = "CrossRange:" + CrossRange;
+                worksheet0.Cells[2, 1].Value = "MutationProbability:" + MutationProbability;
+
+                worksheet0.Cells[2, 1].Value = "迭代次数";
+                worksheet0.Cells[2, 2].Value = "本次最佳染色体编号";
+                worksheet0.Cells[2, 3].Value = "本次最佳适应度";
+                worksheet0.Cells[2, 4].Value = "历史最佳适应度";
+                for (int i = 0; i < processNumTotal * 3; i++)
+                {
+                    worksheet0.Cells[2, 5 + i].Value = i;
+                }
+            
+
             package.Save();
         }
 
@@ -840,12 +879,27 @@ public class GEN_FunctionTest : MonoBehaviour
             package.Save();
         }
     }
+    private void Save_Every_Fit_Min_Data(double[] fit_min)
+    {
+        using (ExcelPackage package = new ExcelPackage(_excelName))
+        {
+            //在 excel 空文件添加新 sheet，并设置名称
+            ExcelWorksheet worksheet = package.Workbook.Worksheets["GEN"];
+
+            for (int i = 0; i < iteration; i++)
+            {
+                worksheet.Cells[3+i, 3].Value =fit_min[i].ToString("f4");
+            }
+            package.Save();
+        }
+    }
+
     void Start()
     {
-        if (SaveTotalData)
+        if (SaveTotalData || SaveEveryFitMinData)
         {
             Excelpath = Generate_Experimental_Tables(DataExportPath, DataExportName, iteration, gensize, workpieceNumber, machineNum, AGVNum, processNumTotal, AGVSpeed, CrossCount_min, CrossCount_max, CrossRange, MutationProbability);  //生成实验数据文件
-            _excelName = new FileInfo(Excelpath);
+            _excelName = new FileInfo(Excelpath);                                                                           
         }
 
         StartGENFunction();
