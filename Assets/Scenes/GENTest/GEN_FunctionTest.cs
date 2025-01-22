@@ -26,6 +26,7 @@ public class GEN_FunctionTest : MonoBehaviour
     public float AGVSpeed = 1.5f;
     public int[] drawData;
     public GameObject canvas;
+    private double Punishment_set = 9999;
 
     public int CrossCount_min = 1;
     public int CrossCount_max = 5;
@@ -379,17 +380,19 @@ public class GEN_FunctionTest : MonoBehaviour
                 int index2 = UnityEngine.Random.Range(0, processNumTotal);//本次变异的机器码
                 int index3 = 0;
 
+
                 //随机数优化变异
-                //for (int j = 1; j < machineNum; j++)
-                //{
-                //    if (processOptMachineTime[index2, index3] > processOptMachineTime[index2, j])//选取用时最少的机器
-                //    {
-                //        index3 = j;
-                //    }
-                //}
+                int[] effect_machine;
+                for (int j = 1; j < machineNum; j++)
+                {
+                    if (processOptMachineTime[index2, index3] > processOptMachineTime[index2, j])//选取用时最少的机器
+                    {
+                        index3 = j;
+                    }
+                }
 
                 //选择变异
-                index3 = UnityEngine.Random.Range(0, machineNum);
+                //index3 = UnityEngine.Random.Range(0, machineNum);
                 genData[i, index2] = index3;
             }
 
@@ -794,7 +797,7 @@ public class GEN_FunctionTest : MonoBehaviour
         {
             for (int j = 0; j < machineNum; j++)
             {
-                processOptMachineTime[i,j] = 9999;//工序对应加工时间初始化
+                processOptMachineTime[i,j] = Punishment_set;//工序对应加工时间初始化
             }
         }
         for (int i = 0; i < pieceMachineTime.Count(); i++)
