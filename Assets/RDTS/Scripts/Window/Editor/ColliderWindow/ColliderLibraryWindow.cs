@@ -76,7 +76,7 @@ namespace RDTS.Window
             colliderLibraries = ReadLibraryData(colliderLibraryData);
             //设置窗口标题及图标
             Texture titleIcon = AssetDatabase.LoadAssetAtPath<Texture>(iconPath + "Parallel.png");
-            thisTitleContent = new GUIContent("Parallel碰撞体库", titleIcon);
+            thisTitleContent = new GUIContent("工厂物流碰撞体库", titleIcon);
             //加载unity自带图标
             LoadTexture();
         }

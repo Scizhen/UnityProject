@@ -180,6 +180,7 @@
     <Compile Include="Assets\RDTS.NodeEditor\Use\NodeLibrary\Nodes\Operation\SubNode.cs" />
     <Compile Include="Assets\RDTS.NodeEditor\Use\NodeLibrary\Nodes\Common\GameObjectNode.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+    <Compile Include="Assets\Scenes\GENTest\GEN_FunctionTest8x8.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

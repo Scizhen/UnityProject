@@ -404,6 +404,7 @@
 "Assets/Scenes/GENTest/GEN_Control_Piece_Drive.cs"
 "Assets/Scenes/GENTest/GEN_Encoed_result.cs"
 "Assets/Scenes/GENTest/GEN_FunctionTest.cs"
+"Assets/Scenes/GENTest/GEN_FunctionTest8x8.cs"
 "Assets/Scenes/GENTest/LineMarkControl.cs"
 "Assets/Scenes/GENTest/PieceStateMachine.cs"
 "Assets/Scenes/PSOTest/GeneticAlgorithm.cs"

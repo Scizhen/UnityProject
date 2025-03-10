@@ -928,7 +928,7 @@ namespace RDTS.Window
             modulelibraries = (libraryMode == LibraryMode.ModelLibrary)? ReadLibraryData(devicelibraryData): ReadLibraryData(materialLibraryData);
             //设置窗口标题及图标
             Texture titleIcon = AssetDatabase.LoadAssetAtPath<Texture>(iconPath+ "Parallel.png");
-            thisTitleContent = new GUIContent("Parallel设备模型库", titleIcon);
+            thisTitleContent = new GUIContent("工厂物流模型库", titleIcon);
             //加载unity自带图标
             LoadTexture();
            
