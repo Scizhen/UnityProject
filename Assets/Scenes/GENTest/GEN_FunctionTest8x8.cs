@@ -40,11 +40,11 @@ public class GEN_FunctionTest8x8 : MonoBehaviour
     public double CrossRange = 0.5;
     public double ReserveRange = 0.2; //保留数量
     public double MutationProbability = 0.1;
-    private int[] processNum1 = { 3,4,3,3,4,3,3,4};//{ 2, 2, 2 };//工件对应工序数量
+    private int[] processNum1 = { 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5 };//{ 3,4,3,3,4,3,3,4};//{ 2, 2, 2 };//工件对应工序数量
     private int[] processNum;//= { 0, 0, 1, 1, 2, 2 };//工序展开便于初始化
     private int[] processOptNum;// = { 3, 3, 3, 3, 3, 2 };//工序可选择的机器数量
     //public int[,] processOptMachine = { { 0, 1, 2 }, { 0, 1, 2 }, { 0, 1, 2 }, { 0, 1, 2 }, { 0, 1, 2 }, { 0, 2, 1 } };//工序选择机器对应机器编号
-    public double[,] processOptMachineTime= { { 5, 3, 5, 3, 3, 9999, 10, 9 }, { 10, 9999, 5, 8, 3, 9, 9, 6 }, { 9999, 10, 9999, 5, 6, 2, 4, 5 }, { 5, 7,3,9,8,9999,9,9999 },{ 9999,8,5,2,6,7,10,9},{ 9999,10,9999,5,6,4,1,7},{ 10,8,9,6,4,7,9999,9999},{ 10,9999,9999,7,6,5,2,4},{ 9999,10,6,4,8,9,10,9999},{ 1,4,5,6,9999,10,9999,7},{ 3,1,6,5,9,7,8,4},{ 12,11,7,8,10,5,6,9},{ 4,6,2,10,3,9,5,7},{ 3,6,7,8,9,9999,10,9999},{ 10,7,9999,4,9,8,6,9999},{ 9999,9,8,7,4,2,7,9999},{ 11,9,9999,6,7,5,3,6},{ 6,7,1,4,6,9,9999,9999},{ 11,9999,9,9,9,7,8,10},{ 10,5,9,10,11,9999,10,4},{ 5,4,2,6,7,9999,10,9999},{ 9999,9,9999,9,11,9,10,5},{ 9999,8,9,3,8,6,9999,10},{ 2,8,5,9,9999,4,9999,8},{ 7,4,7,8,9,9999,10,9999},{ 9,9,9999,8,5,6,7,1},{ 9,9999,3,7,1,5,8,9999} };//工序选择机器所需时间
+    public double[,] processOptMachineTime; //= { { 5, 3, 5, 3, 3, 9999, 10, 9 }, { 10, 9999, 5, 8, 3, 9, 9, 6 }, { 9999, 10, 9999, 5, 6, 2, 4, 5 }, { 5, 7,3,9,8,9999,9,9999 },{ 9999,8,5,2,6,7,10,9},{ 9999,10,9999,5,6,4,1,7},{ 10,8,9,6,4,7,9999,9999},{ 10,9999,9999,7,6,5,2,4},{ 9999,10,6,4,8,9,10,9999},{ 1,4,5,6,9999,10,9999,7},{ 3,1,6,5,9,7,8,4},{ 12,11,7,8,10,5,6,9},{ 4,6,2,10,3,9,5,7},{ 3,6,7,8,9,9999,10,9999},{ 10,7,9999,4,9,8,6,9999},{ 9999,9,8,7,4,2,7,9999},{ 11,9,9999,6,7,5,3,6},{ 6,7,1,4,6,9,9999,9999},{ 11,9999,9,9,9,7,8,10},{ 10,5,9,10,11,9999,10,4},{ 5,4,2,6,7,9999,10,9999},{ 9999,9,9999,9,11,9,10,5},{ 9999,8,9,3,8,6,9999,10},{ 2,8,5,9,9999,4,9999,8},{ 7,4,7,8,9,9999,10,9999},{ 9,9,9999,8,5,6,7,1},{ 9,9999,3,7,1,5,8,9999} };//工序选择机器所需时间
     private double[] machineDistance;//= {1, 2, 4, 1, 2, 4};//设备间的距离，用于计算AGVworktime
     [Serializable]
     public class PieceMachineTime
@@ -831,18 +831,18 @@ public class GEN_FunctionTest8x8 : MonoBehaviour
 
         //}
 
-        //int[] drawdatatest = { 1, 0, 5, 2, 5, 6, 0, 4, 2, 5, 4, 5, 2, 1, 5, 4, 6, 2, 3, 7, 2, 7, 4, 3, 1, 4, 4, 4, 0, 6, 7, 5, 4, 7, 6, 3, 2, 5, 4, 1, 1, 3, 0, 1, 5, 4, 0, 7, 2, 1, 6, 2, 3, 7, 5, 3, 0, 0, 2, 0, 7, 2, 2, 1, 7, 4, 5, 5, 0, 3, 3, 4, 3, 1, 0, 5, 4, 6, 0, 7, 7 };
+        //int[] drawdatatest = { 2,4  , 5   ,0  , 3 ,  3,   4,   6,   3,   2,   1,   2,   2,   1,   5,   5,   6,   3,   5,   7,   2,   1,   3,   0 ,  1   ,7 ,  4,   5  , 4   ,6  , 0  , 2  , 0  , 1 ,  7 ,  3  , 5  , 1,   3 ,  2   ,2 ,  3   ,7  , 1 ,  1 ,  7 ,  4  , 5 ,  0  , 7  , 6  , 6   ,4   ,4  , 4  , 0 ,  5  , 5   ,5,   5 ,  6   ,7 ,  3  , 6  , 4 ,  3 ,  6   ,6  , 0  , 3  , 6  , 3 ,  7   ,2  , 7  , 6,   5,   1 ,  4 ,  0,   6 };
         //for (int i = 0; i < 81; i++)
         //{
         //    drawData[i] = drawdatatest[i];
         //}
-        string shortarrayString = "drawdata:";
-        for (int i = 0; i < 81; i++)
-        {
-            shortarrayString  = shortarrayString +  drawData[i] + ",";
-        }
+        //string shortarrayString = "drawdata:";
+        //for (int i = 0; i < 81; i++)
+        //{
+        //    shortarrayString  = shortarrayString +  drawData[i] + ",";
+        //}
 
-        print(shortarrayString);
+        //print(shortarrayString);
         DrawGante(drawData, index, p_fit_min, iter_min);
         ///迭代结束
 
@@ -871,33 +871,33 @@ public class GEN_FunctionTest8x8 : MonoBehaviour
         {
             processOptNum[i] = machineNum;
         }
-        //processOptMachineTime = new double[processNumTotal, machineNum];
+        processOptMachineTime = new double[processNumTotal, machineNum];
         for (int i = 0; i < processNumTotal; i++)
         {
             for (int j = 0; j < machineNum; j++)
             {
-                if(processOptMachineTime[i, j] == 9999)
+                //if(processOptMachineTime[i, j] == 9999)
                     processOptMachineTime[i,j] = Punishment_set;//工序对应加工时间初始化
             }
         }
-        //for (int i = 0; i < pieceMachineTime.Count(); i++)
-        //{
-        //    int startNum = 0;//工序起始编号
-        //    for (int j = 0; j < i; j++)
-        //    {
-        //        startNum += processNum1[j];
-        //    }
-        //    for (int k = 0; k < pieceMachineTime[i].pieceProcess.Count(); k++)
-        //    {
-        //        int endNum = startNum +k;
-        //        for (int m = 0; m < pieceMachineTime[i].pieceProcess[k].machineTimes.Count(); m++)
-        //        {
-        //            int machineNum = pieceMachineTime[i].pieceProcess[k].machineTimes[m].machineNum;
-        //            double workTime = pieceMachineTime[i].pieceProcess[k].machineTimes[m].workTime;
-        //            processOptMachineTime[endNum, machineNum] = workTime;
-        //        }
-        //    }
-        //}
+        for (int i = 0; i < pieceMachineTime.Count(); i++)
+        {
+            int startNum = 0;//工序起始编号
+            for (int j = 0; j < i; j++)
+            {
+                startNum += processNum1[j];
+            }
+            for (int k = 0; k < pieceMachineTime[i].pieceProcess.Count(); k++)
+            {
+                int endNum = startNum + k;
+                for (int m = 0; m < pieceMachineTime[i].pieceProcess[k].machineTimes.Count(); m++)
+                {
+                    int machineNum = pieceMachineTime[i].pieceProcess[k].machineTimes[m].machineNum;
+                    double workTime = pieceMachineTime[i].pieceProcess[k].machineTimes[m].workTime;
+                    processOptMachineTime[endNum, machineNum] = workTime;
+                }
+            }
+        }
     }
     private string Generate_Experimental_Tables(string path, string name, int iteration, int gensize, int workpieceNumber, int machineNum, int AGVNum, int processNumTotal, float AGVSpeed, int CrossCount_min, int CrossCount_max,double CrossRange,double MutationProbability)
     {

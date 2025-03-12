@@ -410,6 +410,7 @@
 "Assets/Scenes/PSOTest/GeneticAlgorithm.cs"
 "Assets/Scenes/PSOTest/LayoutSystemControl.cs"
 "Assets/Scenes/PSOTest/PSO_FunctionTest.cs"
+"Assets/Scenes/PSOTest/PSO_FunctionTest_12x12.cs"
 "Assets/Scenes/PSOTest/speed_test2.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"

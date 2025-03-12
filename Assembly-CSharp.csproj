@@ -122,6 +122,7 @@
     <Compile Include="Assets\Unity.VisualScripting.Generated\VisualScripting.Core\Property Providers\PropertyProvider_UnityEngine_UI_SpriteState.cs" />
     <Compile Include="Assets\Scenes\GENTest\GEN_Control_Machine_Drive.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\Scenes\GENTest\GEN_FunctionTest8x8.cs" />
     <Compile Include="Assets\Unity.VisualScripting.Generated\VisualScripting.Core\Property Providers\PropertyProvider_TMPro_TMP_Dropdown_OptionDataList.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
     <Compile Include="Assets\Scenes\GENTest\GEN_Control_AGV_Drive.cs" />
@@ -180,7 +181,7 @@
     <Compile Include="Assets\RDTS.NodeEditor\Use\NodeLibrary\Nodes\Operation\SubNode.cs" />
     <Compile Include="Assets\RDTS.NodeEditor\Use\NodeLibrary\Nodes\Common\GameObjectNode.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\Scenes\GENTest\GEN_FunctionTest8x8.cs" />
+    <Compile Include="Assets\Scenes\PSOTest\PSO_FunctionTest_12x12.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
