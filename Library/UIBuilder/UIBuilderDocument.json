@@ -45,20 +45,22 @@
                     "type": 3
                 },
                 "m_ActiveStyleSheet": {
-                    "instanceID": 0
+                    "fileID": 7433441132597879392,
+                    "guid": "8fc3ee2de731652498d922da3f5bf5b4",
+                    "type": 3
                 },
                 "m_Settings": {
                     "UxmlGuid": "eb1e577f3acda2a48bf6646c1538b5ac",
                     "UxmlPath": "Assets/RDTS/Scenes/DemoScenes/DemoBasketLineAddUI/UI Toolkit/NewUXMLTemplate.uxml",
                     "CanvasX": 0,
                     "CanvasY": 0,
-                    "CanvasWidth": 350,
-                    "CanvasHeight": 450,
+                    "CanvasWidth": 1141,
+                    "CanvasHeight": 703,
                     "MatchGameView": false,
                     "ZoomScale": 1.0,
                     "PanOffset": {
-                        "x": 20.0,
-                        "y": 20.0
+                        "x": 23.0,
+                        "y": 123.5
                     },
                     "ColorModeBackgroundOpacity": 1.0,
                     "ImageModeCanvasBackgroundOpacity": 1.0,

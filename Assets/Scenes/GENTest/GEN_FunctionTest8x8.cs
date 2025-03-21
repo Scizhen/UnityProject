@@ -44,7 +44,7 @@ public class GEN_FunctionTest8x8 : MonoBehaviour
     private int[] processNum;//= { 0, 0, 1, 1, 2, 2 };//工序展开便于初始化
     private int[] processOptNum;// = { 3, 3, 3, 3, 3, 2 };//工序可选择的机器数量
     //public int[,] processOptMachine = { { 0, 1, 2 }, { 0, 1, 2 }, { 0, 1, 2 }, { 0, 1, 2 }, { 0, 1, 2 }, { 0, 2, 1 } };//工序选择机器对应机器编号
-    public double[,] processOptMachineTime; //= { { 5, 3, 5, 3, 3, 9999, 10, 9 }, { 10, 9999, 5, 8, 3, 9, 9, 6 }, { 9999, 10, 9999, 5, 6, 2, 4, 5 }, { 5, 7,3,9,8,9999,9,9999 },{ 9999,8,5,2,6,7,10,9},{ 9999,10,9999,5,6,4,1,7},{ 10,8,9,6,4,7,9999,9999},{ 10,9999,9999,7,6,5,2,4},{ 9999,10,6,4,8,9,10,9999},{ 1,4,5,6,9999,10,9999,7},{ 3,1,6,5,9,7,8,4},{ 12,11,7,8,10,5,6,9},{ 4,6,2,10,3,9,5,7},{ 3,6,7,8,9,9999,10,9999},{ 10,7,9999,4,9,8,6,9999},{ 9999,9,8,7,4,2,7,9999},{ 11,9,9999,6,7,5,3,6},{ 6,7,1,4,6,9,9999,9999},{ 11,9999,9,9,9,7,8,10},{ 10,5,9,10,11,9999,10,4},{ 5,4,2,6,7,9999,10,9999},{ 9999,9,9999,9,11,9,10,5},{ 9999,8,9,3,8,6,9999,10},{ 2,8,5,9,9999,4,9999,8},{ 7,4,7,8,9,9999,10,9999},{ 9,9,9999,8,5,6,7,1},{ 9,9999,3,7,1,5,8,9999} };//工序选择机器所需时间
+    public double[,] processOptMachineTime;//= { { 5, 3, 5, 3, 3, 9999, 10, 9 }, { 10, 9999, 5, 8, 3, 9, 9, 6 }, { 9999, 10, 9999, 5, 6, 2, 4, 5 }, { 5, 7,3,9,8,9999,9,9999 },{ 9999,8,5,2,6,7,10,9},{ 9999,10,9999,5,6,4,1,7},{ 10,8,9,6,4,7,9999,9999},{ 10,9999,9999,7,6,5,2,4},{ 9999,10,6,4,8,9,10,9999},{ 1,4,5,6,9999,10,9999,7},{ 3,1,6,5,9,7,8,4},{ 12,11,7,8,10,5,6,9},{ 4,6,2,10,3,9,5,7},{ 3,6,7,8,9,9999,10,9999},{ 10,7,9999,4,9,8,6,9999},{ 9999,9,8,7,4,2,7,9999},{ 11,9,9999,6,7,5,3,6},{ 6,7,1,4,6,9,9999,9999},{ 11,9999,9,9,9,7,8,10},{ 10,5,9,10,11,9999,10,4},{ 5,4,2,6,7,9999,10,9999},{ 9999,9,9999,9,11,9,10,5},{ 9999,8,9,3,8,6,9999,10},{ 2,8,5,9,9999,4,9999,8},{ 7,4,7,8,9,9999,10,9999},{ 9,9,9999,8,5,6,7,1},{ 9,9999,3,7,1,5,8,9999} };//工序选择机器所需时间
     private double[] machineDistance;//= {1, 2, 4, 1, 2, 4};//设备间的距离，用于计算AGVworktime
     [Serializable]
     public class PieceMachineTime
@@ -394,8 +394,22 @@ public class GEN_FunctionTest8x8 : MonoBehaviour
 
                 //随机数优化变异
                 int[] effect_machine;
+                if (open_improve)
+                {
+                    int count = 0;
+                    while (processOptMachineTime[index2, index3] != Punishment_set)
+                    {
+                        index3 = UnityEngine.Random.Range(0, machineNum);
+                        count++;
+                        if (count >= 100)
+                            break;
+
+                    }
+                }
+
                 for (int j = 1; j < machineNum; j++)
                 {
+
                     if (processOptMachineTime[index2, index3] > processOptMachineTime[index2, j])//选取用时最少的机器
                     {
                         index3 = j;
@@ -661,7 +675,8 @@ public class GEN_FunctionTest8x8 : MonoBehaviour
             var serieMacData = chart.AddData(count_data, serieData1, serieData2, serieData1, serieData2);//
             serieMacData.radius = 10;
             var itemMacStyle = serieMacData.EnsureComponent<ItemStyle>(); //给数据项添加ItemStyle组件
-            itemMacStyle.color = drawColor[Oi];
+            //itemMacStyle.color = drawColor[Oi];
+            itemMacStyle.color = Color.white;
             itemMacStyle.borderColor = Color.black;
             //if (Oi == 0)
             //    itemMacStyle.color = Color.blue;
@@ -679,7 +694,8 @@ public class GEN_FunctionTest8x8 : MonoBehaviour
             var serieMacData1 = chart.AddData(count_data, serieData3, serieData4, serieData3, serieData4);//
             serieMacData1.radius = 10;
             var itemMacStyle1 = serieMacData1.EnsureComponent<ItemStyle>(); //给数据项添加ItemStyle组件
-            itemMacStyle1.color = drawColor[Oi];
+            //itemMacStyle1.color = drawColor[Oi];
+            itemMacStyle1.color = Color.black;
             itemMacStyle1.borderColor = Color.white;
             //if (Oi == 0)
             //    itemMacStyle1.color = Color.blue;
@@ -831,18 +847,19 @@ public class GEN_FunctionTest8x8 : MonoBehaviour
 
         //}
 
-        //int[] drawdatatest = { 2,4  , 5   ,0  , 3 ,  3,   4,   6,   3,   2,   1,   2,   2,   1,   5,   5,   6,   3,   5,   7,   2,   1,   3,   0 ,  1   ,7 ,  4,   5  , 4   ,6  , 0  , 2  , 0  , 1 ,  7 ,  3  , 5  , 1,   3 ,  2   ,2 ,  3   ,7  , 1 ,  1 ,  7 ,  4  , 5 ,  0  , 7  , 6  , 6   ,4   ,4  , 4  , 0 ,  5  , 5   ,5,   5 ,  6   ,7 ,  3  , 6  , 4 ,  3 ,  6   ,6  , 0  , 3  , 6  , 3 ,  7   ,2  , 7  , 6,   5,   1 ,  4 ,  0,   6 };
-        //for (int i = 0; i < 81; i++)
+        //int[] drawdatatest = { 1, 3, 4, 6, 9, 11, 0, 2, 4, 8, 9, 14, 1, 2, 5, 8, 10, 14, 1, 2, 4, 7, 9, 14, 1, 2, 5, 8, 10, 14, 1, 2, 4, 8, 9, 13, 15, 19, 12, 21, 23, 15, 19, 11, 20, 23, 17, 18, 13, 21, 22, 16, 19, 11, 20, 23, 15, 18, 11, 21, 22, 4, 5, 3, 0, 7, 9, 6, 5, 2, 4, 0, 0, 4, 1, 10, 6, 7, 9, 5, 7, 10, 3, 0, 8, 1, 2, 2, 5, 4, 3, 8, 3, 1, 9, 8, 1, 0, 7, 9, 5, 6, 0, 10, 1, 2, 10, 4, 6, 4, 7, 6, 1, 3, 9, 5, 10, 8, 2, 8, 2, 3, 6, 0, 4, 5, 3, 2, 1, 2, 3, 0, 0, 6, 6, 7, 0, 2, 7, 4, 0, 5, 3, 0, 4, 2, 1, 2, 6, 1, 7, 0, 3, 4, 6, 5, 7, 4, 2, 3, 4, 5, 1, 3, 0, 2, 4, 4, 1, 2, 7, 6, 4, 7, 0, 0, 2, 5, 3, 1, 3, 1, 4 };
+        ////int[] drawdatatest = { 2, 2, 6, 0, 5, 6, 3, 6, 3, 1, 0, 2, 5, 1, 3, 5, 6, 2, 5, 2, 3, 1, 3, 5, 1, 7, 4, 1, 4, 6, 7, 7, 5, 0, 3, 1, 2, 2, 5, 4, 1, 4, 4, 1, 6, 7, 2, 7, 3, 0, 3, 0, 5, 6, 7, 1, 3, 5, 6, 7, 0, 5, 3, 7, 2, 4, 6, 0, 3, 0, 6, 2, 3, 5, 7, 2, 1, 6, 6, 4, 7 };
+        //for (int i = 0; i < drawdatatest.Count(); i++)
         //{
         //    drawData[i] = drawdatatest[i];
         //}
-        //string shortarrayString = "drawdata:";
-        //for (int i = 0; i < 81; i++)
-        //{
-        //    shortarrayString  = shortarrayString +  drawData[i] + ",";
-        //}
+        string shortarrayString = "drawdata:";
+        for (int i = 0; i < drawData.Count(); i++)
+        {
+            shortarrayString = shortarrayString + drawData[i] + ",";
+        }
 
-        //print(shortarrayString);
+        print(shortarrayString);
         DrawGante(drawData, index, p_fit_min, iter_min);
         ///迭代结束
 
@@ -876,7 +893,7 @@ public class GEN_FunctionTest8x8 : MonoBehaviour
         {
             for (int j = 0; j < machineNum; j++)
             {
-                //if(processOptMachineTime[i, j] == 9999)
+                //if (processOptMachineTime[i, j] == 9999)
                     processOptMachineTime[i,j] = Punishment_set;//工序对应加工时间初始化
             }
         }

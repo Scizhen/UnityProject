@@ -3,13 +3,13 @@
     "UxmlPath": "Assets/RDTS/Scenes/DemoScenes/DemoBasketLineAddUI/UI Toolkit/NewUXMLTemplate.uxml",
     "CanvasX": 0,
     "CanvasY": 0,
-    "CanvasWidth": 280,
-    "CanvasHeight": 450,
+    "CanvasWidth": 1141,
+    "CanvasHeight": 703,
     "MatchGameView": false,
     "ZoomScale": 1.0,
     "PanOffset": {
-        "x": 437.26666259765627,
-        "y": 262.86663818359377
+        "x": 23.0,
+        "y": 123.5
     },
     "ColorModeBackgroundOpacity": 1.0,
     "ImageModeCanvasBackgroundOpacity": 1.0,

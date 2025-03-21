@@ -93,6 +93,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
     <Compile Include="Assets\RDTS.NodeEditor\Use\NodeLibrary\Nodes\Common\PrefabNode.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+    <Compile Include="Assets\Scenes\PSOTest\PSO_FunctionTest_12x12.cs" />
     <Compile Include="Assets\Unity.VisualScripting.Generated\VisualScripting.Core\Property Providers\PropertyProvider_TMPro_TMP_GlyphPairAdjustmentRecord.cs" />
     <Compile Include="Assets\Unity.VisualScripting.Generated\VisualScripting.Core\Property Providers\PropertyProvider_UnityEngine_UI_ScrollRect_ScrollRectEvent.cs" />
     <Compile Include="Assets\Unity.VisualScripting.Generated\VisualScripting.Core\Property Providers\PropertyProvider_UnityEngine_UI_ColorBlock.cs" />
@@ -181,7 +182,6 @@
     <Compile Include="Assets\RDTS.NodeEditor\Use\NodeLibrary\Nodes\Operation\SubNode.cs" />
     <Compile Include="Assets\RDTS.NodeEditor\Use\NodeLibrary\Nodes\Common\GameObjectNode.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\Scenes\PSOTest\PSO_FunctionTest_12x12.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

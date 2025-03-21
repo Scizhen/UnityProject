@@ -26,7 +26,7 @@ namespace VisualSpline
     }
     public class GEN_Encoed_result : MonoBehaviour
     {
-        public GEN_FunctionTest GEN_Function;//训练函数，获取参数
+        public GEN_FunctionTest8x8 GEN_Function;//训练函数，获取参数
         public Spline Map;//样条线驱动所在地图
         public GameObject AGVPrefeb;//AGV预制体
         public SplinePoint AGVStart;//AGV起始点
@@ -197,8 +197,9 @@ namespace VisualSpline
             PieceLineChart.RemoveData();
             for (int i = 0; i < GEN_Function.workpieceNumber; i++)
             {
-                PieceLineChart.AddSerie<XCharts.Runtime.Line>("Piece" + i);
+                var serie = PieceLineChart.AddSerie<XCharts.Runtime.Line>("Piece" + i);
                 PieceLineChart.AddData(i, 0, 0);
+
             }
 
             //PieceLineChart.CheckChartInit(); 
@@ -211,7 +212,10 @@ namespace VisualSpline
             {
                 var time = Math.Round(Pieces[piece].drawDataPieceTime[Pieces[piece].drawDataPieceTime.Count - 1], 1);
                 var num = Pieces[piece].drawDataPieceNum[Pieces[piece].drawDataPieceNum.Count - 1];
-                PieceLineChart.AddData(piece, time, num);
+                var serieData = PieceLineChart.AddData(piece, time, num);
+                var itemStyle = serieData.EnsureComponent<ItemStyle>(); //给数据项添加ItemStyle组件
+                itemStyle.color =LineColor[piece];
+
             }
         }
 

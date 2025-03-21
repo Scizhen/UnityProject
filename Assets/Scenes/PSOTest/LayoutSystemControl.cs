@@ -22,7 +22,7 @@ public class LayoutSystemControl : MonoBehaviour
     public GEN_Encoed_result GENEncoedFuntion;
     public GameObject GENResultChart;
     public GameObject PieceLineChart;
-    public GEN_FunctionTest GENFuntion;
+    public GEN_FunctionTest8x8 GENFuntion;
 
     [Header("Transform")]
     public GameObject TransformAnalys;
@@ -64,7 +64,7 @@ public class LayoutSystemControl : MonoBehaviour
     {
         GEN_BasicParameterTransfer(GEN_Basic);
         //¿ªÆô²¼¾Ö
-        GENFuntion.StartGENFunction();
+        GENFuntion.StartGENFunction(1);
     }
     void CreateGENEncodeFuntion()
     {
