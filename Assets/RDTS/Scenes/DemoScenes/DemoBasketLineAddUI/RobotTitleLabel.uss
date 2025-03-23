@@ -1,0 +1,6 @@
+Label {
+    font-size: 18px;
+    color: rgb(0, 0, 0);
+    -unity-text-align: middle-center;
+    text-shadow: 1px 1px 1px rgba(7, 7, 7, 0.39);
+}

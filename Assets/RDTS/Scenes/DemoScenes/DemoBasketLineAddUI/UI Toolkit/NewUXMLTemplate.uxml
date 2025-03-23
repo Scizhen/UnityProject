@@ -1,0 +1,224 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/RDTS/Scenes/DemoScenes/DemoBasketLineAddUI/MenuStyle.uss?fileID=7433441132597879392&amp;guid=8fc3ee2de731652498d922da3f5bf5b4&amp;type=3#MenuStyle" />
+    <Style src="project://database/Assets/RDTS/Scenes/DemoScenes/DemoBasketLineAddUI/RobotTitleLabel.uss?fileID=7433441132597879392&amp;guid=723609f8be0355a45831d79c0307cfe0&amp;type=3#RobotTitleLabel" />
+    <ui:VisualElement name="MainMenu" style="flex-grow: 1; align-items: flex-start; justify-content: center; display: none;">
+        <ui:Button text="查看" display-tooltip-when-elided="true" name="OptionsButton" class="button-style" />
+    </ui:VisualElement>
+    <ui:VisualElement name="ValueMenu" style="flex-grow: 0; flex-basis: 20%; flex-wrap: nowrap; flex-direction: row; flex-shrink: 1; display: flex; height: 186px;">
+        <ui:VisualElement name="Robot1" style="flex-basis: 10%; background-color: rgba(0, 0, 0, 0.08); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; flex-direction: column; flex-grow: 0; height: 171px; width: 145px;">
+            <ui:VisualElement name="Robot1HeadTitle" style="font-size: 10px;">
+                <ui:Label text="None" display-tooltip-when-elided="true" name="Robot1HeadTitle" style="font-size: 20px; flex-shrink: 1; flex-basis: 100%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Robot2" style="flex-basis: 10%; background-color: rgba(0, 0, 0, 0.08); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; flex-direction: column; flex-grow: 0; height: 170px;">
+            <ui:VisualElement name="Robot1HeadTitle">
+                <ui:Label text="None" display-tooltip-when-elided="true" name="Robot1HeadTitle" style="font-size: 20px; flex-shrink: 1; flex-basis: 100%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Robot3" style="flex-basis: 10%; background-color: rgba(0, 0, 0, 0.08); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; flex-direction: column; flex-grow: 0; height: 170px;">
+            <ui:VisualElement name="Robot1HeadTitle">
+                <ui:Label text="None" display-tooltip-when-elided="true" name="Robot1HeadTitle" style="font-size: 20px; flex-shrink: 1; flex-basis: 100%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Robot4" style="flex-basis: 10%; background-color: rgba(0, 0, 0, 0.08); border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px; flex-direction: column; flex-grow: 0; height: 171px;">
+            <ui:VisualElement name="Robot1HeadTitle">
+                <ui:Label text="None" display-tooltip-when-elided="true" name="Robot1HeadTitle" style="font-size: 20px; flex-shrink: 1; flex-basis: 100%;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Robot1Axis" style="flex-grow: 1; flex-direction: row; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px;">
+                <ui:VisualElement name="Robot1Title" style="flex-basis: 40%; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; background-color: rgba(255, 255, 255, 0.24); border-top-left-radius: 10px; border-bottom-left-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1TitleLabel" />
+                </ui:VisualElement>
+                <ui:VisualElement name="Robot1Value" style="flex-basis: 50%; flex-grow: 1; background-color: rgba(255, 255, 255, 0.16); border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="Robot1ValueLabel" style="-unity-text-align: middle-center; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="OptionsMenu" style="flex-grow: 0; bottom: 0; top: 70%; flex-basis: 10%; display: flex;">
+        <ui:Button text="返回" display-tooltip-when-elided="true" name="BackButton" class="button-style" style="height: 60%; width: 10%;" />
+    </ui:VisualElement>
+</ui:UXML>
