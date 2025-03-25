@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 using System;
+using RDTS;
 
 namespace VisualSpline
 {
@@ -17,11 +18,14 @@ namespace VisualSpline
         }
 
         public enum StationStatus { Entering, Working, Leaving, Empty, Failure, Waiting };
+        public int machineIndex;
         public double[] StatusTimes = new double[6];
         [Foldout("Status")][ReadOnly] public StationStatus LoadStatus = StationStatus.Empty;//装载点状态
         [Foldout("Status")] [ReadOnly] public StationStatus UnloadStatus = StationStatus.Empty;//卸载点状态
         [ReadOnly] public SplinePoint loadPoint;
         [ReadOnly] public SplinePoint unloadPoint;
+        [ReadOnly] public ValueOutputInt StationStartStatus;
+        [ReadOnly] public ValueOutputInt StationEndStatus;
         [ReadOnly] public GEN_Control_AGV_Drive LoadAGV;//装载点AGV
         [ReadOnly] public double remainTime = 0;//剩余加工时间
 
@@ -35,13 +39,53 @@ namespace VisualSpline
             for (int i = 0; i < StatusTimes.Length; i++)
             {
                 StatusTimes[i] = 0;
-            }    
+            }
+            //更新装载点和卸载点状态
+            string StationStartStatus_name = machineIndex + "StationStartStatus";
+            string StationEndStatus_name = machineIndex + "StationEndStatus";
+            if (this.GetComponent<Transform>().Find("Signals") != null)
+            {
+                Transform signals = this.GetComponent<Transform>().Find("Signals");
+                this.StationStartStatus = signals.Find(StationStartStatus_name).GetComponent<ValueOutputInt>();
+                this.StationEndStatus = signals.Find(StationEndStatus_name).GetComponent<ValueOutputInt>();
+            }
+
         }
 
+        int StationStatus2num(StationStatus ss)
+        {
+            int num = -1;
+            switch (ss) {
+                case StationStatus.Entering:
+                    num = 0;
+                    break;
+                case StationStatus.Working:
+                    num = 1;
+                    break;
+                case StationStatus.Leaving:
+                    num = 2;
+                    break;
+                case StationStatus.Empty:
+                    num = 3;
+                    break;
+                case StationStatus.Failure:
+                    num = 4;
+                    break;
+                case StationStatus.Waiting:
+                    num = 5;
+                    break;
+            }
+            return num;
+        }
         // Update is called once per frame
         void Update()
         {
-            if(processList.Count != 0 && currentProcessStep < processList.Count)
+            if (StationStartStatus is not null)
+                StationStartStatus.SetValue(StationStatus2num(LoadStatus));
+            if (StationEndStatus is not null)
+                StationEndStatus.SetValue(StationStatus2num(UnloadStatus));
+
+            if (processList.Count != 0 && currentProcessStep < processList.Count)
                 currentProcessNmae = processList[currentProcessStep].Process_name;
 
             //运送工件至装载点，进行拿取工件操作

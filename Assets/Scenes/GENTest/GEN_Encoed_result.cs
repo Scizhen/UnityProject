@@ -117,6 +117,7 @@ namespace VisualSpline
                 if (Machines[index].machineName.GetComponent<GEN_Control_Machine_Drive>() == null)
                     Machines[index].machineName.AddComponent<GEN_Control_Machine_Drive>();
                 GEN_Control_Machine_Drive machineDrive = Machines[index].machineName.GetComponent<GEN_Control_Machine_Drive>();
+                machineDrive.machineIndex = index;
                 machineDrive.loadPoint = m.LoadPoint;
                 machineDrive.unloadPoint = m.UnloadPoint;
             }
