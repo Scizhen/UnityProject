@@ -4,6 +4,7 @@ using UnityEngine;
 using NaughtyAttributes;
 using System;
 using XCharts.Runtime;
+using UnityEditorInternal;
 namespace VisualSpline
 {
     [Serializable]
@@ -28,6 +29,7 @@ namespace VisualSpline
     {
         public GEN_FunctionTest8x8 GEN_Function;//训练函数，获取参数
         public Spline Map;//样条线驱动所在地图
+        public GameObject PiecePrefeb;//AGV预制体
         public GameObject AGVPrefeb;//AGV预制体
         public SplinePoint AGVStart;//AGV起始点
         public SplinePoint AGVEnd;//AGV终点
@@ -127,7 +129,12 @@ namespace VisualSpline
             Piece = new GameObject[GEN_Function.workpieceNumber];
             for (int i = 0; i < GEN_Function.workpieceNumber; i++)
             {
-                Piece[i] = new GameObject("Piece" + i);
+                Piece[i] = Instantiate(PiecePrefeb, this.transform, true);
+                string pieceName = "Piece" + i;
+                Piece[i].name = pieceName;
+                if (!isHasTag(pieceName))
+                    InternalEditorUtility.AddTag(pieceName);
+                Piece[i].tag = pieceName;
                 Piece[i].transform.parent = this.transform;
                 Piece[i].AddComponent<PieceStateMachine>();
                 Piece[i].GetComponent<PieceStateMachine>().Encoed_Scripts = this;
@@ -259,6 +266,16 @@ namespace VisualSpline
         {
             if(startWork)
                 timeTotal += 0.02;
+        }
+        public static bool isHasTag(string tag)
+        {
+            string[] tags = InternalEditorUtility.tags;
+            for (int i = 0; i < tags.Length; i++)
+            {
+                if (tags[i].Equals(tag))
+                    return true;
+            }
+            return false;
         }
     }
 }
