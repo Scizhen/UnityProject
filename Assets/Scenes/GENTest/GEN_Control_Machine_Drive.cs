@@ -89,10 +89,10 @@ namespace VisualSpline
                 currentProcessNmae = processList[currentProcessStep].Process_name;
 
             //运送工件至装载点，进行拿取工件操作
-            if (LoadStatus == StationStatus.Waiting && LoadAGV.AGVStatus == GEN_Control_AGV_Drive.StationStatus.Waiting && LoadAGV.targetAGVDrive.currentLine.endPoint == loadPoint)
+            if (LoadStatus == StationStatus.Working)// && LoadAGV.AGVStatus == GEN_Control_AGV_Drive.StationStatus.Waiting && LoadAGV.targetAGVDrive.currentLine.endPoint == loadPoint)
             {
-                LoadAGV.AGVStatus = GEN_Control_AGV_Drive.StationStatus.Empty;//在装载点拿完工件后释放AGV
-                LoadStatus = StationStatus.Working;
+                //LoadAGV.AGVStatus = GEN_Control_AGV_Drive.StationStatus.Empty;//在装载点拿完工件后释放AGV
+                LoadStatus = StationStatus.Empty;
                 UnloadStatus = StationStatus.Empty;
                 remainTime = processList[currentProcessStep].work_time;
             }
