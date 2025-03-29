@@ -2,12 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+<<<<<<< HEAD
+=======
+using RDTS.Utility;
+using RDTS;
+>>>>>>> origin/master
 namespace VisualSpline
 {
     //状态机控制器
     public class PieceStateMachine : GEN_Control_Piece_Drive
     {
+<<<<<<< HEAD
         [ReadOnly]public string state_name;
+=======
+        [NaughtyAttributes.ReadOnly] public string state_name;
+>>>>>>> origin/master
         private PieceState currentState;
 
         public void ChangeState(PieceState newState)
@@ -139,7 +148,14 @@ namespace VisualSpline
         private GEN_Control_AGV_Drive AGVControl;
 
         private GEN_Control_Machine_Drive MachineDrive;
+<<<<<<< HEAD
         private SplinePoint targetMachineLoadPoint;
+=======
+        private GEN_Control_Machine_Drive CurrentMachineDrive;
+        private SplinePoint targetMachineLoadPoint;
+        private Detector AGV_detector;
+        private float timer = 0f;
+>>>>>>> origin/master
         public override void Enter()
         {
             Debug.Log("进入运输状态");
@@ -147,15 +163,39 @@ namespace VisualSpline
             int targetAGVNum = stateMachine.SchemeList[stateMachine.processStep].AGV;
             targetAGV = stateMachine.Encoed_Scripts.AGV[targetAGVNum];//从总控中获取到目标AGV
             AGVControl = targetAGV.GetComponent<GEN_Control_AGV_Drive>();
+<<<<<<< HEAD
+=======
+            //获取当前机器
+            if (stateMachine.processStep >= 1)
+            {
+                int currentNum = stateMachine.processStep - 1;
+                int currentMachineNum = stateMachine.SchemeList[currentNum].machine;
+                GameObject currentMachine = stateMachine.Encoed_Scripts.Machines[currentMachineNum].machineName;
+                CurrentMachineDrive = currentMachine.GetComponent<GEN_Control_Machine_Drive>();
+            }
+>>>>>>> origin/master
             //获取目标机器
             int targetMachineNum = stateMachine.SchemeList[stateMachine.processStep].machine;
             targetMachineLoadPoint = stateMachine.Encoed_Scripts.Machines[targetMachineNum].LoadPoint;//从总控中获取到目标机器装载点
             GameObject targetMachine = stateMachine.Encoed_Scripts.Machines[targetMachineNum].machineName;//从总控中获取到目标机器
             MachineDrive = targetMachine.GetComponent<GEN_Control_Machine_Drive>();
+<<<<<<< HEAD
+=======
+
+            //配置装载台只装载目标工件
+            Transform exhibition = AGVControl.GetComponent<Transform>().Find("exhibition");
+            AGV_detector = exhibition.Find("Detector").GetComponent<Detector>();
+            AGV_detector.LimitTag.Clear();
+            AGV_detector.LimitLayer.Clear();
+            AGV_detector.LimitTag.Add(stateMachine.tag);
+            
+
+>>>>>>> origin/master
         }
 
         public override void Execute()
         {
+<<<<<<< HEAD
             Debug.Log("AGV调度至工件所在处并运输至目标机器...");
             GEN_Control_AGV_Drive.StationStatus targetAGVStatus = AGVControl.AGVStatus;
             //过程1：AGV来到目标工件处
@@ -170,6 +210,49 @@ namespace VisualSpline
             //过程2：AGV将工件运送至目标机器处的装载点
             if (AGVControl.targetPoint == stateMachine.piecePlace && targetAGVStatus == GEN_Control_AGV_Drive.StationStatus.Waiting)
             {
+=======
+            Debug.Log("AGV调度至工件所在处并运输至目标机器..." + AGVControl.name);
+            GEN_Control_AGV_Drive.StationStatus targetAGVStatus = AGVControl.AGVStatus;
+            //过程1：AGV来到目标工件处
+            if (targetAGVStatus == GEN_Control_AGV_Drive.StationStatus.Entering) {
+                Debug.Log("AGV调度至工件所在处并运输至目标机器000"+AGVControl.name);
+                if (AGVControl.targetPoint != stateMachine.piecePlace)
+                    AGVControl.targetPoint = stateMachine.piecePlace;
+            }
+            //AGV到达目标工件
+            if (targetAGVStatus == GEN_Control_AGV_Drive.StationStatus.Entering && AGVControl.targetAGVDrive.currentLine.endPoint == stateMachine.piecePlace && AGVControl.targetAGVDrive.currentLine.percentage == 1)
+            {
+                Debug.Log("AGV调度至工件所在处并运输至目标机器111" + AGVControl.name);
+                //第一道工序工件刷新给AGV
+                if (stateMachine.processStep == 0 && AGV_detector.EffectObjects.Count==0)
+                {
+                    Transform exhibition = AGVControl.GetComponent<Transform>().Find("exhibition");
+                    stateMachine.GetComponent<Transform>().position = exhibition.position;
+                    stateMachine.GetComponent<Transform>().rotation = exhibition.rotation;
+                    stateMachine.GetComponent<Transform>().Rotate(0, 90, 0);
+                }
+
+                if (stateMachine.processStep >= 1)
+                {
+                    CurrentMachineDrive.UnloadStatus = GEN_Control_Machine_Drive.StationStatus.Waiting;
+                }
+                if(AGV_detector.EffectObjects.Count > 0)
+                    timer += Time.deltaTime;
+                if (timer >= 1)
+                {
+
+                    AGVControl.GetComponent<Transform>().Find("StartLoad").GetComponent<ValueMiddleBool>().SetValue(true);
+                    timer = 0f;
+                    AGVControl.AGVStatus = GEN_Control_AGV_Drive.StationStatus.Waiting;
+                }
+                //stateMachine.GetComponent<Transform>().parent = AGVControl.GetComponent<Transform>().Find("exhibition") ;
+
+            }
+            //过程2：AGV将工件运送至目标机器处的装载点
+            if (AGVControl.targetPoint == stateMachine.piecePlace && targetAGVStatus == GEN_Control_AGV_Drive.StationStatus.Waiting )//&&(stateMachine.processStep == 0|| CurrentMachineDrive.UnloadStatus == GEN_Control_Machine_Drive.StationStatus.Leaving))
+            {
+                Debug.Log("AGV调度至工件所在处并运输至目标机器222");
+>>>>>>> origin/master
                 AGVControl.carriedPiece = stateMachine;//防止AGV初始化时被判断为到达转载点
                 AGVControl.AGVStatus = GEN_Control_AGV_Drive.StationStatus.Leaving;
                 if (AGVControl.targetPoint != targetMachineLoadPoint)
@@ -178,6 +261,7 @@ namespace VisualSpline
             //到达目标点后进入等待状态
             if (targetAGVStatus == GEN_Control_AGV_Drive.StationStatus.Leaving && AGVControl.targetAGVDrive.currentLine.endPoint == targetMachineLoadPoint && AGVControl.targetAGVDrive.currentLine.percentage == 1)
             {
+<<<<<<< HEAD
                 AGVControl.AGVStatus = GEN_Control_AGV_Drive.StationStatus.Waiting;
             }
             if (AGVControl.targetAGVDrive.currentLine.endPoint == targetMachineLoadPoint && AGVControl.targetPoint == targetMachineLoadPoint && targetAGVStatus == GEN_Control_AGV_Drive.StationStatus.Waiting) 
@@ -185,15 +269,48 @@ namespace VisualSpline
 
 
 
+=======
+                Debug.Log("AGV调度至工件所在处并运输至目标机器333");
+                AGVControl.GetComponent<Transform>().Find("StartLoad").GetComponent<ValueMiddleBool>().SetValue(false);
+                AGVControl.GetComponent<Transform>().Find("EndLoad").GetComponent<ValueMiddleBool>().SetValue(true);
+
+                //调整位置
+                Transform exhibition = AGVControl.GetComponent<Transform>().Find("exhibition");
+                stateMachine.GetComponent<Transform>().position = exhibition.position;
+                stateMachine.GetComponent<Transform>().rotation = exhibition.rotation;
+                stateMachine.GetComponent<Transform>().Rotate(0, 90, 0);
+
+                AGVControl.AGVStatus = GEN_Control_AGV_Drive.StationStatus.Waiting;
+                MachineDrive.LoadStatus = GEN_Control_Machine_Drive.StationStatus.Waiting;
+                MachineDrive.LoadAGV = AGVControl;
+            }
+            if (AGVControl.targetAGVDrive.currentLine.endPoint == targetMachineLoadPoint && AGVControl.targetPoint == targetMachineLoadPoint && targetAGVStatus == GEN_Control_AGV_Drive.StationStatus.Waiting)
+            {
+                Debug.Log("AGV调度至工件所在处并运输至目标机器444");
+                if (AGV_detector.EffectObjects.Count == 0)
+                    timer += Time.deltaTime;
+                if (timer >= 1)
+                {
+                    AGVControl.GetComponent<Transform>().Find("EndLoad").GetComponent<ValueMiddleBool>().SetValue(false);
+                    timer = 0f;
+                    stateMachine.ChangeState(new ProcessingState());
+                }
+            }
+>>>>>>> origin/master
 
         }
 
         public override void Exit()
         {
             Debug.Log("目标机器返回装载完成信号，退出状态");
+<<<<<<< HEAD
             MachineDrive.LoadStatus = GEN_Control_Machine_Drive.StationStatus.Waiting;
             MachineDrive.LoadAGV = AGVControl;
             AGVControl.carriedPiece = null;
+=======
+            AGVControl.carriedPiece = null;
+            AGVControl.AGVStatus = GEN_Control_AGV_Drive.StationStatus.Empty;
+>>>>>>> origin/master
         }
         public override string StateName()
         {
@@ -214,6 +331,10 @@ namespace VisualSpline
             targetMachineUnLoadPoint = stateMachine.Encoed_Scripts.Machines[targetMachineNum].UnloadPoint;//从总控中获取到目标机器卸载点
             GameObject targetMachine = stateMachine.Encoed_Scripts.Machines[targetMachineNum].machineName;//从总控中获取到目标机器
             MachineDrive = targetMachine.GetComponent<GEN_Control_Machine_Drive>();
+<<<<<<< HEAD
+=======
+            MachineDrive.LoadStatus = GEN_Control_Machine_Drive.StationStatus.Working;
+>>>>>>> origin/master
         }
 
         public override void Execute()

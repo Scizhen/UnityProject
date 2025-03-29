@@ -29,6 +29,10 @@ namespace RDTS.Interface
         /* public bool SyncInEditMode = true; */
         [Range(0, 10)]
         public float RDKSimulationSpeed = 1f;//RoboDK仿真运行速度
+<<<<<<< HEAD
+=======
+        public float RobotSpeed = 1f;//RoboDK仿真运行速度
+>>>>>>> origin/master
 
         public string RobotProgramm;//要执行的RoboDK程序（此机械臂执行哪一个program）
         public bool RunProgrammOnStart;//是否在Unity运行开始时运行RobotProgramm程序
@@ -580,8 +584,13 @@ namespace RDTS.Interface
         public void SetSpeed()
         {
             RDK.setSimulationSpeed(RDKSimulationSpeed);
+<<<<<<< HEAD
             //Robot.setSpeed(400, 450, 400, 450);
             //Robot.setSpeed(800, 1000, 800, 1000);
+=======
+            //Robot.setSpeed(RDKSimulationSpeed*400, RDKSimulationSpeed * 450, RDKSimulationSpeed * 400, RDKSimulationSpeed * 450);
+            Robot.setSpeed(RobotSpeed, RobotSpeed, RobotSpeed, RobotSpeed);
+>>>>>>> origin/master
         }
 
         public void SetRobotSpeed(double speed_linear, double accel_linear, double speed_joints, double accel_joints)

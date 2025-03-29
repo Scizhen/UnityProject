@@ -4,6 +4,10 @@ using UnityEngine;
 using NaughtyAttributes;
 using System;
 using XCharts.Runtime;
+<<<<<<< HEAD
+=======
+using UnityEditorInternal;
+>>>>>>> origin/master
 namespace VisualSpline
 {
     [Serializable]
@@ -28,6 +32,10 @@ namespace VisualSpline
     {
         public GEN_FunctionTest8x8 GEN_Function;//训练函数，获取参数
         public Spline Map;//样条线驱动所在地图
+<<<<<<< HEAD
+=======
+        public GameObject PiecePrefeb;//AGV预制体
+>>>>>>> origin/master
         public GameObject AGVPrefeb;//AGV预制体
         public SplinePoint AGVStart;//AGV起始点
         public SplinePoint AGVEnd;//AGV终点
@@ -117,6 +125,10 @@ namespace VisualSpline
                 if (Machines[index].machineName.GetComponent<GEN_Control_Machine_Drive>() == null)
                     Machines[index].machineName.AddComponent<GEN_Control_Machine_Drive>();
                 GEN_Control_Machine_Drive machineDrive = Machines[index].machineName.GetComponent<GEN_Control_Machine_Drive>();
+<<<<<<< HEAD
+=======
+                machineDrive.machineIndex = index;
+>>>>>>> origin/master
                 machineDrive.loadPoint = m.LoadPoint;
                 machineDrive.unloadPoint = m.UnloadPoint;
             }
@@ -126,7 +138,16 @@ namespace VisualSpline
             Piece = new GameObject[GEN_Function.workpieceNumber];
             for (int i = 0; i < GEN_Function.workpieceNumber; i++)
             {
+<<<<<<< HEAD
                 Piece[i] = new GameObject("Piece" + i);
+=======
+                Piece[i] = Instantiate(PiecePrefeb, this.transform, true);
+                string pieceName = "Piece" + i;
+                Piece[i].name = pieceName;
+                if (!isHasTag(pieceName))
+                    InternalEditorUtility.AddTag(pieceName);
+                Piece[i].tag = pieceName;
+>>>>>>> origin/master
                 Piece[i].transform.parent = this.transform;
                 Piece[i].AddComponent<PieceStateMachine>();
                 Piece[i].GetComponent<PieceStateMachine>().Encoed_Scripts = this;
@@ -259,6 +280,19 @@ namespace VisualSpline
             if(startWork)
                 timeTotal += 0.02;
         }
+<<<<<<< HEAD
+=======
+        public static bool isHasTag(string tag)
+        {
+            string[] tags = InternalEditorUtility.tags;
+            for (int i = 0; i < tags.Length; i++)
+            {
+                if (tags[i].Equals(tag))
+                    return true;
+            }
+            return false;
+        }
+>>>>>>> origin/master
     }
 }
 
