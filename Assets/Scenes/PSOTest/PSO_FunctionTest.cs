@@ -6,6 +6,7 @@ using System.Threading;
 using UnityEngine;
 using OfficeOpenXml;
 using System.IO;
+using NaughtyAttributes;
 
 public class PSO_FunctionTest : MonoBehaviour
 {
@@ -490,5 +491,11 @@ public class PSO_FunctionTest : MonoBehaviour
     void Update()
     {
         
+    }
+
+    [Button("Start PSO Function")]
+    void ButtonStartPSOFunction()
+    {
+        StartPSOFunction();
     }
 }
