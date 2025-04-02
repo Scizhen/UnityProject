@@ -54,6 +54,12 @@ namespace VisualSpline
             targetAGVDrive.isDrive = true;
 
         }
+        void Cal_AGV_Motion_path_straight(SplinePoint startPoint, SplinePoint endPoint)
+        {
+            targetAGVDrive.motionPath.Add(startPoint);
+            targetAGVDrive.motionPath.Add(endPoint);
+            targetAGVDrive.isDrive = true;
+        }
         // Start is called before the first frame update
         void Start()
         {
@@ -69,7 +75,9 @@ namespace VisualSpline
                 if (targetPoint is not null)
                 {
                     Set_AGV_Status();
-                    Cal_AGV_Motion_path(targetAGVDrive.currentLine.endPoint, targetPoint);
+                    //Cal_AGV_Motion_path(targetAGVDrive.currentLine.endPoint, targetPoint);
+                    Cal_AGV_Motion_path_straight(targetAGVDrive.currentLine.endPoint, targetPoint);
+
                 }
             }
             //if ((AGVStatus == StationStatus.Leaving && carriedPiece != null )|| AGVStatus == StationStatus.Entering)

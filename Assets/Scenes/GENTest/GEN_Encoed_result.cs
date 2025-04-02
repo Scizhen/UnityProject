@@ -76,6 +76,19 @@ namespace VisualSpline
         {
             genResult = GEN_Function.drawData;
 
+            //初始化装卸载点
+            for (int i = 0; i < Machines.Count; i++)
+            {
+                if (Machines[i].LoadPoint == null)
+                {
+                    Machines[i].LoadPoint = Machines[i].machineName.GetComponent<Transform>().Find("LoadPoint").GetComponent<SplinePoint>();
+                }
+                if (Machines[i].UnloadPoint == null)
+                {
+                    Machines[i].UnloadPoint = Machines[i].machineName.GetComponent<Transform>().Find("UnloadPoint").GetComponent<SplinePoint>();
+                }
+            }
+
             //创建AGV实例并初始化
             AGV = new GameObject[GEN_Function.AGVNum];
             Lines = new GameObject[GEN_Function.AGVNum];

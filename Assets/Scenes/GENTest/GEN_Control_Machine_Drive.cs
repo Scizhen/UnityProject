@@ -41,8 +41,9 @@ namespace VisualSpline
                 StatusTimes[i] = 0;
             }
             //更新装载点和卸载点状态
-            string StationStartStatus_name = machineIndex + "StationStartStatus";
-            string StationEndStatus_name = machineIndex + "StationEndStatus";
+            int machineIndexAddOne = machineIndex + 1;
+            string StationStartStatus_name = machineIndexAddOne + "StationStartStatus";
+            string StationEndStatus_name = machineIndexAddOne + "StationEndStatus";
             if (this.GetComponent<Transform>().Find("Signals") != null)
             {
                 Transform signals = this.GetComponent<Transform>().Find("Signals");

@@ -200,33 +200,45 @@ public class PSO_FunctionTest : MonoBehaviour
 
     private void Generate_Layout_Plan(double[] x_gbest) 
     {
-        for (int i = 0; i < prefebs.Count(); i++)
+        if (prefebs.Count() < equipmentNumber)
         {
-            Destroy(prefebs[i]);
+            for (int i = 0; i < prefebs.Count(); i++)
+            {
+                DestroyImmediate(prefebs[i], true);
+            }
+            prefebs.Clear();
+            for (int i = 0; i < equipmentNumber; i++)
+            {
+                GameObject obj;
+                Vector3 pos = new Vector3(((float)x_gbest[i]), 0, ((float)x_gbest[equipmentNumber + i]));
+                Vector3 scale = new Vector3(((float)Equipment_Length[i]), 1, ((float)Equipment_Width[i]));
+                if (machineGameObject[i] == null)
+                {
+                    prefeb = Resources.Load("Cube") as GameObject;
+                    obj = Instantiate(prefeb, pos, Quaternion.identity);
+                    obj.transform.localScale = scale;
+                }
+                else
+                {
+                    prefeb = machineGameObject[i];
+                    obj = Instantiate(prefeb, pos, Quaternion.identity);
+                }
+                if (obj.GetComponent<MeshRenderer>() != null)
+                    obj.GetComponent<MeshRenderer>().material.color = UnityEngine.Random.ColorHSV();
+                obj.name = i.ToString();
+                prefebs.Add(obj);
+            }
         }
-        prefebs.Clear();
+        else
+        {
+            for (int i = 0; i < equipmentNumber; i++)
+            {
+                Vector3 pos = new Vector3(((float)x_gbest[i]), 0, ((float)x_gbest[equipmentNumber + i]));
+                Vector3 scale = new Vector3(((float)Equipment_Length[i]), 1, ((float)Equipment_Width[i]));
+                prefebs[i].transform.position = pos;
+            }
+        }
 
-        for (int i = 0; i < equipmentNumber; i++)
-        {
-            GameObject obj;
-            Vector3 pos = new Vector3(((float)x_gbest[i]),0, ((float)x_gbest[equipmentNumber + i]));
-            Vector3 scale = new Vector3(((float)Equipment_Length[i]),1,((float)Equipment_Width[i]));
-            if (machineGameObject[i] == null)
-            {
-                prefeb = Resources.Load("Cube") as GameObject;
-                obj = Instantiate(prefeb, pos, Quaternion.identity);
-                obj.transform.localScale = scale;
-            }
-            else
-            {
-                prefeb = machineGameObject[i];
-                obj = Instantiate(prefeb, pos, Quaternion.identity);
-            }
-            if (obj.GetComponent<MeshRenderer>() != null)
-                obj.GetComponent<MeshRenderer>().material.color = UnityEngine.Random.ColorHSV();
-            obj.name = i.ToString();
-            prefebs.Add(obj);
-        }
     }
     private string  Generate_Experimental_Tables(string path,string name,double Wmax,double Wmin,double C1,double C2,double[] xlimit,double[] ylimit,double[] vlimit,double T1,double T2,double eq_Min_Length,double eq_Min_Width,double wall_Min_length,double wall_Min_width) 
     {
