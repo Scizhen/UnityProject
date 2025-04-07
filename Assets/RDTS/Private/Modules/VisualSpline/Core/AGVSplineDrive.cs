@@ -320,9 +320,16 @@ namespace VisualSpline
                     //UpdateOrientation 更新朝向
                     if (axisRotate.isRotate)
                     {
-                        pathdirection = GetDirectionInBezierCurves(line, lineDetail.startPoint, lineDetail.endPoint, lineDetail.percentage);
-                        this.transform.LookAt(this.transform.position + GetDirectionInBezierCurves(line,lineDetail.startPoint, lineDetail.endPoint, lineDetail.percentage),
-                        (axisRotate.yIsUp) ? Vector3.up : Vector3.down);
+                        if (percentage != 1)
+                        {
+                            pathdirection = GetDirectionInBezierCurves(line, lineDetail.startPoint, lineDetail.endPoint, lineDetail.percentage);
+                            this.transform.LookAt(this.transform.position + GetDirectionInBezierCurves(line, lineDetail.startPoint, lineDetail.endPoint, lineDetail.percentage),
+                            (axisRotate.yIsUp) ? Vector3.up : Vector3.down);
+                        }
+                        else 
+                        {
+                            this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 90, this.transform.eulerAngles.z);
+                        }
                     }
 
 
@@ -335,9 +342,16 @@ namespace VisualSpline
                     //UpdateOrientation 更新朝向
                     if (axisRotate.isRotate)
                     {
-                        pathdirection = GetDirectionInStraightLine(lineDetail.startPoint, lineDetail.endPoint);
-                        this.transform.LookAt(this.transform.position + GetDirectionInStraightLine(lineDetail.startPoint, lineDetail.endPoint),
-                        (axisRotate.yIsUp) ? Vector3.up : Vector3.down);
+                        if (percentage != 1)
+                        {
+                            pathdirection = GetDirectionInStraightLine(lineDetail.startPoint, lineDetail.endPoint);
+                            this.transform.LookAt(this.transform.position + GetDirectionInStraightLine(lineDetail.startPoint, lineDetail.endPoint),
+                            (axisRotate.yIsUp) ? Vector3.up : Vector3.down);
+                        }
+                        else
+                        {
+                            this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x, 90, this.transform.eulerAngles.z);
+                        }
                     }
 
 
@@ -347,24 +361,31 @@ namespace VisualSpline
             //更新rotation
             if (rotateWithPoint)
             {
-
-                if (!isReverse)
+                if (percentage != 1)
                 {
-                    float delta_angle = Quaternion.Angle(this.transform.rotation, lineDetail.endPoint.transform.rotation);
-                    this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation,
-                        lineDetail.endPoint.transform.rotation,
-                        //delta_angle*percentage//(speed * Time.deltaTime / 100)
-                        delta_angle / (1 - percentage) * (speed * Time.deltaTime / 100)//按帧率（帧数）计算
-                    );
+                    if (!isReverse)
+                    {
+                        float delta_angle = Quaternion.Angle(this.transform.rotation, lineDetail.endPoint.transform.rotation);
+                        this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation,
+                            lineDetail.endPoint.transform.rotation,
+                            //delta_angle*percentage//(speed * Time.deltaTime / 100)
+                            delta_angle / (1 - percentage) * (speed * Time.deltaTime / 100)//按帧率（帧数）计算
+                        );
+                    }
+                    else
+                    {
+                        float delta_angle = Quaternion.Angle(this.transform.rotation, lineDetail.startPoint.transform.rotation);
+                        this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation,
+                            lineDetail.startPoint.transform.rotation,
+                            //delta_angle*percentage//(speed * Time.deltaTime / 100)
+                            delta_angle / percentage * (speed * Time.deltaTime / 100)//按帧率计算
+                        );
+                    }
+
                 }
                 else
                 {
-                    float delta_angle = Quaternion.Angle(this.transform.rotation, lineDetail.startPoint.transform.rotation);
-                    this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation,
-                        lineDetail.startPoint.transform.rotation,
-                        //delta_angle*percentage//(speed * Time.deltaTime / 100)
-                        delta_angle / percentage * (speed * Time.deltaTime / 100)//按帧率计算
-                    );
+                    this.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x,90,this.transform.eulerAngles.z);
                 }
 
                 //关闭其他有关方向调整的方法

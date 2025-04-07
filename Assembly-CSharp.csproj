@@ -72,6 +72,7 @@
     <Compile Include="Assets\Unity.VisualScripting.Generated\VisualScripting.Core\Property Providers\PropertyProvider_TMPro_HorizontalAlignmentOptions.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\RDTS.NodeEditor\Use\NodeLibrary\Nodes\DataElement\IntNode.cs" />
+    <Compile Include="Assets\Scenes\GENTest\GEN_Encoed_result_PSO.cs" />
     <Compile Include="Assets\Unity.VisualScripting.Generated\VisualScripting.Core\Property Providers\PropertyProvider_TMPro_TMP_FontWeightPair.cs" />
     <Compile Include="Assets\Scenes\GENTest\LineMarkControl.cs" />
     <Compile Include="Assets\RDTS.NodeEditor\Use\NodeLibrary\Nodes\Utils\RobotSuck_RoboDK_Node.cs" />
@@ -182,7 +183,6 @@
     <Compile Include="Assets\RDTS.NodeEditor\Use\NodeLibrary\Nodes\Operation\SubNode.cs" />
     <Compile Include="Assets\RDTS.NodeEditor\Use\NodeLibrary\Nodes\Common\GameObjectNode.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\Scenes\GENTest\GEN_Encoed_result_PSO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
