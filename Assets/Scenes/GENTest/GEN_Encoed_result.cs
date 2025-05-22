@@ -42,8 +42,8 @@ namespace VisualSpline
         [Header("Moving line analysis")]
         public bool openLineAnalysis = false;
         public GameObject LinePrefeb;
-        public float LineWidth = 0.002f;
-        public float LineWidthRandom = 0.001f;
+        public float LineWidth = 0.1f;
+        public float LineWidthRandom = 0.1f;
         public List<Color> LineColor;
 
         [Header("Draw Chart")]

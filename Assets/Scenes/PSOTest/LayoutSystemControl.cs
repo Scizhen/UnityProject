@@ -14,8 +14,8 @@ public class LayoutSystemControl : MonoBehaviour
     public Button CreatePSOButton;
     public List<GameObject> machineGameObject = new List<GameObject>();
     public GameObject BackgroundPlane;
-    private PSO_FunctionTest PSOFuntion = new PSO_FunctionTest();
-
+    //private PSO_FunctionTest PSOFuntion = new PSO_FunctionTest();
+    public PSO_FunctionTest PSOFuntion;
     [Header("GEN")]
     public Button CreateGENButton;
     public Button CreateGENEncodeButton;
@@ -54,8 +54,8 @@ public class LayoutSystemControl : MonoBehaviour
         PSO_GAParameterTransfer(PSO_GA);
         PSO_PrefebParameterTransfer(PSO_Prefeb);
         //¿ªÆô²¼¾Ö
-        BackgroundPlane.GetComponent<Transform>().localScale = new Vector3((float)PSOFuntion.xlimit[1], 0.01f, (float)PSOFuntion.ylimit[1]);
-        BackgroundPlane.GetComponent<Transform>().localPosition = new Vector3((float)PSOFuntion.xlimit[1]/2, 0.01f, (float)PSOFuntion.ylimit[1]/2);
+        //BackgroundPlane.GetComponent<Transform>().localScale = new Vector3((float)PSOFuntion.xlimit[1], 0.01f, (float)PSOFuntion.ylimit[1]);
+        //BackgroundPlane.GetComponent<Transform>().localPosition = new Vector3((float)PSOFuntion.xlimit[1]/2, 0.01f, (float)PSOFuntion.ylimit[1]/2);
         PSOFuntion.StartPSOFunction();
     }
 
